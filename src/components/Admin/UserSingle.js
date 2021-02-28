@@ -27,6 +27,8 @@ const UserSingle = () => {
         },
         { merge: true }
       );
+
+      getUser();
     }
   };
 
@@ -38,6 +40,7 @@ const UserSingle = () => {
             {" "}
             {singleUser.firstName} {singleUser.lastName}
           </h3>
+          <p>Current Step: {singleUser.currentStep + 1}</p>
 
           <Card>
             <CardContent>
@@ -59,9 +62,13 @@ const UserSingle = () => {
                   <Button
                     variant="outlined"
                     onClick={handleApprove}
-                    disabled={singleUser.stepStatus === "approved"}
+                    disabled={
+                      singleUser.currentStep > 0 ||
+                      singleUser.stepStatus === "approved"
+                    }
                   >
-                    {singleUser.stepStatus === "approved"
+                    {singleUser.stepStatus === "approved" ||
+                    singleUser.currentStep > 0
                       ? "Approved"
                       : "Approve"}
                   </Button>
