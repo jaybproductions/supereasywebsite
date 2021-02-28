@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+}
+
+.home {
+  padding-top: 10px;
+}
+
+.icon {
+  text-align: center;
+  padding: "10px";
+}
+
+.icon a:hover {
+  background-color: black;
+}
+
+.websites {
+  text-align: center;
+  margin: "auto";
+}
