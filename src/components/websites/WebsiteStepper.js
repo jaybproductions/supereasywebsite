@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import DesignQuestions from "./DesignQuestions";
 import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
+import HostingOptions from "./HostingOptions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,7 @@ function getStepContent(stepIndex) {
     case 0:
       return <DesignQuestions />;
     case 1:
-      return "This is where hosting options will go";
+      return <HostingOptions />;
     case 2:
       return "This is where the mockup will go";
     case 3:
@@ -49,7 +50,7 @@ function getStepContent(stepIndex) {
   }
 }
 
-export default function WebsiteStepper() {
+export default function WebsiteStepper({ type }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();

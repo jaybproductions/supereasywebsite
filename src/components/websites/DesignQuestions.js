@@ -4,6 +4,7 @@ import useForm from "../../hooks/useForm";
 import validateDesignForm from "../../validators/validateDesignForm";
 import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
+import { ToastContainer, toast } from "react-toastify";
 
 const DesignQuestions = () => {
   const { user } = useContext(UserContext);
@@ -44,6 +45,9 @@ const DesignQuestions = () => {
           stepStatus: "pending",
         },
         { merge: true }
+      );
+      toast.success(
+        "Thank you for submitting design questions. Please wait for approval to move to next step..."
       );
       getUser();
     }

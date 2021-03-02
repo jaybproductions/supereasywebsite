@@ -136,23 +136,6 @@ const Header = (props) => {
 
   return (
     <>
-      {userData && (
-        <div
-          className="admin-bar"
-          style={{
-            height: "10px",
-            backgroundColor: "red",
-            zIndex: "999999",
-            paddingLeft: "0px",
-            padding: "40px",
-            margin: "auto",
-            width: "1000px",
-            color: "white",
-          }}
-        >
-          {userData.isAdmin ? "You're an admin" : "Customer"}
-        </div>
-      )}
       <div className="header">
         <CssBaseline />
         <AppBar
@@ -161,6 +144,27 @@ const Header = (props) => {
             [classes.appBarShift]: open,
           })}
         >
+          {userData && (
+            <div
+              className="admin-bar"
+              style={{
+                height: "5px",
+                backgroundColor: "blue",
+                zIndex: "999999",
+                paddingLeft: "0px",
+                paddingBottom: "30px",
+                padding: "15px",
+                margin: "auto",
+                width: "1600px",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              <h6 style={{ width: "50%", margin: "auto" }}>
+                {userData.isAdmin ? "You're an admin" : "Customer"}
+              </h6>
+            </div>
+          )}
           <Toolbar>
             <Typography variant="h6" noWrap style={{ width: "30%" }}>
               <div className="title">
@@ -170,6 +174,7 @@ const Header = (props) => {
                 </Link>
               </div>
             </Typography>
+
             <div
               className="icons"
               style={{
@@ -292,6 +297,7 @@ const Header = (props) => {
           className={clsx(classes.content, {
             [classes.contentShift]: open,
           })}
+          style={{ paddingTop: "15px" }}
         >
           <div className={classes.drawerHeader} />
           {props.component}

@@ -74,8 +74,11 @@ const UserSingle = () => {
                   </Button>
                 </CardContent>
               </Card>
-              Can show any additional information here such as clients Monday
-              board and any additional information needed
+              <Card>
+                <CardContent>
+                  Client Selected Hosting Package: {singleUser.hosting}
+                </CardContent>
+              </Card>
             </CardContent>
           </Card>
         </>
