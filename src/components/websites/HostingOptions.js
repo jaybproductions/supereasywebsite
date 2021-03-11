@@ -126,9 +126,15 @@ const HostingOptions = () => {
                 <li>CDN and Caching for fastest speed available</li>
                 <li>Fully Managed by Us</li>
               </ul>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
             </FormGroup>
           </FormControl>
-          <Button onClick={handleSubmit}>Submit</Button>
         </CardContent>
       </Card>
       <ToastContainer />

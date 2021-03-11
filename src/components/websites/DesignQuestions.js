@@ -15,6 +15,7 @@ const DesignQuestions = () => {
     references: "",
     colors: "",
     fonts: "",
+    comments: "",
   };
 
   useEffect(() => {
@@ -27,7 +28,14 @@ const DesignQuestions = () => {
     setUserData(docRef.data());
   };
   const submitDesign = async () => {
-    const { businessName, currentWebsite, references, colors, fonts } = values;
+    const {
+      businessName,
+      currentWebsite,
+      references,
+      colors,
+      fonts,
+      comments,
+    } = values;
     console.log(businessName);
     if (!user) {
       console.log("waiting to connect");
@@ -41,6 +49,7 @@ const DesignQuestions = () => {
             references: references,
             colors: colors,
             fonts: fonts,
+            comments: comments,
           },
           stepStatus: "pending",
         },
@@ -66,47 +75,68 @@ const DesignQuestions = () => {
           {userData.stepStatus === "started" ? (
             <>
               {" "}
-              <h4>Please fill out this design questionare and submit...</h4>
               <Card>
                 <CardContent>
                   <form style={{ padding: "10px" }}>
                     <TextField
                       name="businessName"
                       variant="outlined"
-                      style={{ padding: "10px" }}
+                      label="Business Name"
                       onChange={handleChange}
                     />
                     <TextField
                       name="currentWebsite"
                       variant="outlined"
-                      style={{ padding: "10px" }}
+                      label="Current Website Address"
                       onChange={handleChange}
                     />
                   </form>
-                  <form style={{ padding: "10px" }}>
+                  <form
+                    style={{ padding: "10px", margin: "auto", width: "430px" }}
+                  >
                     <TextField
                       name="references"
                       variant="outlined"
-                      style={{ padding: "10px" }}
+                      label="References"
                       onChange={handleChange}
-                    />
-                    <TextField
-                      name="colors"
-                      variant="outlined"
-                      style={{ padding: "10px" }}
-                      onChange={handleChange}
+                      fullWidth
                     />
                   </form>
                   <form style={{ padding: "10px" }}>
                     <TextField
                       name="fonts"
                       variant="outlined"
-                      style={{ padding: "10px" }}
+                      label="Fonts"
                       onChange={handleChange}
                     />
-                    <TextField variant="outlined" style={{ padding: "10px" }} />
+                    <TextField
+                      name="colors"
+                      variant="outlined"
+                      label="Colors"
+                      onChange={handleChange}
+                    />
                   </form>
-                  <Button onClick={handleSubmit}>Submit</Button>
+                  <form
+                    style={{ padding: "10px", width: "430px", margin: "auto" }}
+                  >
+                    <TextField
+                      variant="outlined"
+                      name="comments"
+                      label="Comments"
+                      onChange={handleChange}
+                      multiline
+                      rows={4}
+                      maxRows={8}
+                      fullWidth
+                    />
+                  </form>
+                  <Button
+                    onClick={handleSubmit}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Submit
+                  </Button>
                 </CardContent>
               </Card>{" "}
             </>
@@ -115,6 +145,7 @@ const DesignQuestions = () => {
           )}
         </>
       )}
+      <ToastContainer />
     </div>
   );
 };

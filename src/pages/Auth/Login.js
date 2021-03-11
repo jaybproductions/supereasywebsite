@@ -5,7 +5,7 @@ import validateLogin from "../../validators/validateLogin";
 import useForm from "../../hooks/useForm";
 import firebase from "../../firebase";
 import logo from "../../images/logo.png";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Card, CardContent } from "@material-ui/core";
 
 const INITIAL_STATE = {
   email: "",
@@ -39,43 +39,49 @@ const Login = (props) => {
   }
 
   return (
-    <div className="login" style={{ textAlign: "center" }}>
-      <img src={logo} width="300px" style={{ paddingBottom: "20px" }} />
-      <form lines="full">
-        <TextField
-          name="email"
-          value={values.email}
-          type="text"
-          required
-          onChange={handleChange}
-          label="Email"
-          variant="outlined"
-        />
-      </form>
-      <form lines="full" style={{ paddingTop: "10px" }}>
-        <TextField
-          name="password"
-          type="password"
-          required
-          value={values.password}
-          onChange={handleChange}
-          label="Password"
-          variant="outlined"
-        />
-      </form>
-      <div style={{ paddingTop: "10px" }}></div>
-      <Button
-        type="submit"
-        color="primary"
-        expand="block"
-        onClick={handleSubmit}
-        disabled={isSubmitting}
-        variant="contained"
-      >
-        Log In
-      </Button>
-
-      <Link to={"/forgot"}>Forgot Password?</Link>
+    <div className="login" style={{ textAlign: "center", paddingTop: "20px" }}>
+      <Card style={{ width: "50%", margin: "auto" }}>
+        <CardContent>
+          <img src={logo} width="300px" style={{ paddingBottom: "20px" }} />
+          <form lines="full">
+            <TextField
+              name="email"
+              value={values.email}
+              type="text"
+              required
+              onChange={handleChange}
+              label="Email"
+              variant="outlined"
+            />
+          </form>
+          <form lines="full" style={{ paddingTop: "10px" }}>
+            <TextField
+              name="password"
+              type="password"
+              required
+              value={values.password}
+              onChange={handleChange}
+              label="Password"
+              variant="outlined"
+            />
+          </form>
+          <div style={{ paddingTop: "10px" }}></div>
+          <Button
+            type="submit"
+            color="primary"
+            expand="block"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            variant="contained"
+          >
+            Log In
+          </Button>
+          <br />
+          <Link to={"/forgot"}>
+            <p style={{ paddingTop: "10px" }}>Forgot Password?</p>
+          </Link>
+        </CardContent>
+      </Card>
     </div>
   );
 };

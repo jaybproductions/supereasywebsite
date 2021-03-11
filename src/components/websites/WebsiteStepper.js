@@ -9,6 +9,7 @@ import DesignQuestions from "./DesignQuestions";
 import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
 import HostingOptions from "./HostingOptions";
+import MockupLink from "./MockupLink";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,7 @@ function getStepContent(stepIndex) {
     case 1:
       return <HostingOptions />;
     case 2:
-      return "This is where the mockup will go";
+      return <MockupLink />;
     case 3:
       return "This is where final testing will go";
     case 4:

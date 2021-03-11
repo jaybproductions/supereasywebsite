@@ -1,9 +1,10 @@
-.App {
-  text-align: center;
+html,
+body {
+  height: 100%;
 }
 
-.home {
-  padding-top: 10px;
+.App {
+  text-align: center;
 }
 
 .icon {
@@ -18,4 +19,8 @@
 .websites {
   text-align: center;
   margin: "auto";
+}
+.login {
+  height: "100%";
+  padding-top: "20px";
 }

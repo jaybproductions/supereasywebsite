@@ -3,6 +3,15 @@ import { Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 const UserItem = ({ user }) => {
+  const handleCurrentStep = (step) => {
+    if (step === 0) {
+      return "Design Questionaire";
+    } else if (step === 1) {
+      return "Hosting Selection";
+    } else if (step === 2) {
+      return "Mockup Creation/Approval";
+    }
+  };
   return (
     <div
       className="user-item"
@@ -11,7 +20,12 @@ const UserItem = ({ user }) => {
       <Link to={`/project/${user.id}`} style={{ textDecoration: "none" }}>
         <Card>
           <CardContent>
-            {user.firstName} {user.lastName} - Status: {user.projectStatus}
+            <h5>
+              {user.firstName} {user.lastName}
+            </h5>{" "}
+            Status: {user.projectStatus}
+            <br />
+            Current Step: {handleCurrentStep(user.currentStep)}
           </CardContent>
         </Card>
       </Link>

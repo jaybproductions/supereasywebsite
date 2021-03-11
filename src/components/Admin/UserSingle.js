@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import firebase from "../../firebase";
-import { Button, Card, CardContent } from "@material-ui/core";
+import { Button, Card, CardContent, TextField, Grid } from "@material-ui/core";
+import { update } from "draft-js/lib/DefaultDraftBlockRenderMap";
 
 const UserSingle = () => {
   const { project } = useParams();
   const [singleUser, setSingleUser] = useState(null);
+  const [mockupLink, setMockupLink] = useState("");
   useEffect(() => {
     getUser();
   }, [project]);
@@ -14,6 +16,7 @@ const UserSingle = () => {
     const docRef = await firebase.db.collection("users").doc(project).get();
     console.log(docRef.data());
     setSingleUser(docRef.data());
+    setMockupLink(docRef.data().mockupLink);
   };
 
   const handleApprove = () => {
@@ -32,6 +35,30 @@ const UserSingle = () => {
     }
   };
 
+  const handleAddMockupLink = () => {
+    if (!singleUser) {
+      return;
+    } else {
+      const updateRef = firebase.db.collection("users").doc(singleUser.id);
+      updateRef.update(
+        {
+          mockupLink: mockupLink,
+        },
+        { merge: true }
+      );
+    }
+  };
+
+  const handleCurrentStep = (step) => {
+    if (step === 0) {
+      return "Design Questionaire";
+    } else if (step === 1) {
+      return "Hosting Selection";
+    } else if (step === 2) {
+      return "Mockup Creation/Approval";
+    }
+  };
+
   return (
     <div className="user-single">
       {singleUser && (
@@ -40,47 +67,86 @@ const UserSingle = () => {
             {" "}
             {singleUser.firstName} {singleUser.lastName}
           </h3>
-          <p>Current Step: {singleUser.currentStep + 1}</p>
+          <p>Current Step: {handleCurrentStep(singleUser.currentStep)}</p>
+          <br />
+          Project Status: {singleUser.projectStatus}
+          <br />
+          <div style={{ margin: "auto", width: "50%" }}>
+            <Grid container justify="center" spacing={6}>
+              <Grid item xs={12}>
+                <Card style={{ width: "100%", margin: "auto" }}>
+                  <CardContent>
+                    {singleUser.designQuestions ? (
+                      <>
+                        {" "}
+                        <h4>Design Questions</h4>
+                        Business Name: {
+                          singleUser.designQuestions.businessName
+                        }{" "}
+                        <br />
+                        Current Website:{" "}
+                        {singleUser.designQuestions.currentWebsite} <br />
+                        References: {singleUser.designQuestions.references}{" "}
+                        <br />
+                        Colors: {singleUser.designQuestions.colors} <br />
+                        Fonts: {singleUser.designQuestions.fonts} <br />
+                        <Button
+                          variant="outlined"
+                          onClick={handleApprove}
+                          disabled={
+                            singleUser.currentStep > 0 ||
+                            singleUser.stepStatus === "approved"
+                          }
+                        >
+                          {singleUser.stepStatus === "approved" ||
+                          singleUser.currentStep > 0
+                            ? "Approved"
+                            : "Approve"}
+                        </Button>{" "}
+                      </>
+                    ) : (
+                      <> Waiting on Design Information </>
+                    )}
+                  </CardContent>
+                </Card>
+              </Grid>
 
-          <Card>
-            <CardContent>
-              <br />
-              Project Status: {singleUser.projectStatus}
-              <br />
-              <Card style={{ width: "50%", margin: "auto" }}>
-                <CardContent>
-                  <h4>Design Questions</h4>
-                  Business Name: {singleUser.designQuestions.businessName}{" "}
-                  <br />
-                  Current Website: {
-                    singleUser.designQuestions.currentWebsite
-                  }{" "}
-                  <br />
-                  References: {singleUser.designQuestions.references} <br />
-                  Colors: {singleUser.designQuestions.colors} <br />
-                  Fonts: {singleUser.designQuestions.fonts} <br />
-                  <Button
-                    variant="outlined"
-                    onClick={handleApprove}
-                    disabled={
-                      singleUser.currentStep > 0 ||
-                      singleUser.stepStatus === "approved"
-                    }
-                  >
-                    {singleUser.stepStatus === "approved" ||
-                    singleUser.currentStep > 0
-                      ? "Approved"
-                      : "Approve"}
-                  </Button>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent>
-                  Client Selected Hosting Package: {singleUser.hosting}
-                </CardContent>
-              </Card>
-            </CardContent>
-          </Card>
+              <Grid item xs={6} style={{ margin: "auto" }}>
+                <Card
+                  style={{ width: "100%", margin: "auto", height: "300px" }}
+                >
+                  <CardContent>
+                    <h4>Hosting Package</h4>
+                    Client Selected Hosting Package: {singleUser.hosting}
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={6} style={{ margin: "auto" }}>
+                <Card
+                  style={{ width: "100%", margin: "auto", height: "300px" }}
+                >
+                  <CardContent>
+                    <h4>Mockup Link</h4>
+                    <TextField
+                      variant="outlined"
+                      label="enter mockup link here..."
+                      value={mockupLink}
+                      onChange={(e) => setMockupLink(e.target.value)}
+                      size="small"
+                    />
+                    <Button
+                      onClick={handleAddMockupLink}
+                      size="md"
+                      variant="contained"
+                      color="primary"
+                    >
+                      Add Link
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </div>
         </>
       )}
     </div>

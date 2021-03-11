@@ -52,6 +52,9 @@ const Signup = (props) => {
         username: name,
         email: email,
         pages: pageArr,
+        currentStep: 0,
+        stepStatus: "started",
+        projectStatus: "started",
       });
       console.log("You have signed up succsessfully!");
       props.history.push("/home");

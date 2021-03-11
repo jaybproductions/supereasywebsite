@@ -35,9 +35,10 @@ const linkStyle = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 600,
+    width: "50%",
     backgroundColor: "#393034",
     color: "#ffffff",
+    margin: "auto",
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
@@ -96,7 +97,6 @@ const useStyles = makeStyles((theme) => ({
   userInfo: {
     textAlign: "left",
     width: "100%",
-    paddingLeft: "60px",
   },
 }));
 
@@ -166,11 +166,11 @@ const Header = (props) => {
             </div>
           )}
           <Toolbar>
-            <Typography variant="h6" noWrap style={{ width: "30%" }}>
+            <Typography variant="h6" noWrap style={{ width: "60%" }}>
               <div className="title">
                 <h3>{props.title}</h3>
                 <Link to="/">
-                  <img src={logo} width="100px" />
+                  <img src={logo} width="100px" style={{ padding: "10px" }} />
                 </Link>
               </div>
             </Typography>
@@ -178,14 +178,10 @@ const Header = (props) => {
             <div
               className="icons"
               style={{
-                width: "40%",
-
-                margin: "auto 0",
-                textAlign: "left",
-                display: "flex",
+                width: "100%",
+                margin: "auto",
+                textAlign: "center",
                 justifyContent: "space-between",
-                paddingLeft: "250px",
-                paddingRight: "50px",
               }}
             >
               {" "}
