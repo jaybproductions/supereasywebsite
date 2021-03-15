@@ -65,19 +65,7 @@ export default function WebsiteStepper({ type }) {
 
   const handleInitial = async () => {
     const docRef = await firebase.db.collection("users").doc(user.uid).get();
-
     setActiveStep(docRef.data().currentStep);
-    if (docRef.data().stepStatus === "approved") {
-      handleNext();
-      const updateRef = firebase.db.collection("users").doc(user.uid);
-      updateRef.update(
-        {
-          currentStep: activeStep + 1,
-          stepStatus: "started",
-        },
-        { merge: true }
-      );
-    }
   };
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

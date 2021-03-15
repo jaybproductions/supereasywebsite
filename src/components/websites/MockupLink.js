@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import firebase from "../../firebase";
+import LinkIcon from "@material-ui/icons/Link";
+import Fab from "@material-ui/core/Fab";
 
 const MockupLink = () => {
   const { user } = useContext(UserContext);
@@ -20,7 +22,14 @@ const MockupLink = () => {
     <div className="mockup-link">
       {mockupLink ? (
         <>
-          <a href={mockupLink}>Click here to see Mockup</a>
+          Your Mockup Link <br />
+          <div style={{ paddingBottom: "5px" }} />
+          <a href={mockupLink}>
+            <Fab>
+              <LinkIcon />
+            </Fab>
+            <br />
+          </a>
         </>
       ) : (
         <>Please wait for mockup to be created... </>

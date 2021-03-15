@@ -152,10 +152,10 @@ const Header = (props) => {
                 backgroundColor: "blue",
                 zIndex: "999999",
                 paddingLeft: "0px",
-                paddingBottom: "30px",
+                paddingBottom: "40px",
                 padding: "15px",
                 margin: "auto",
-                width: "1600px",
+                width: "100%",
                 color: "white",
                 textAlign: "center",
               }}
@@ -274,15 +274,7 @@ const Header = (props) => {
                     <AccountIcon user={user} LogoutUser={LogoutUser} />{" "}
                   </>
                 ) : (
-                  <>
-                    {" "}
-                    <Link to={"/login"} style={{ color: "white" }}>
-                      <button type="button" className="btn btn-warning">
-                        Login
-                      </button>{" "}
-                    </Link>
-                    <AccountIcon />
-                  </>
+                  <></>
                 )}
               </div>
             </Typography>

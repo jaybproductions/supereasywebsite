@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import firebase from "../../firebase";
 import { Button, Card, CardContent, TextField, Grid } from "@material-ui/core";
 import { update } from "draft-js/lib/DefaultDraftBlockRenderMap";
+import { init } from "emailjs-com";
+import emailjs from "emailjs-com";
+init("user_0HgOZL0g5w9HF8Uc69yMW");
 
 const UserSingle = () => {
   const { project } = useParams();
@@ -26,12 +29,27 @@ const UserSingle = () => {
       const updateRef = firebase.db.collection("users").doc(singleUser.id);
       updateRef.update(
         {
-          stepStatus: "approved",
+          stepStatus: "started",
+          currentStep: singleUser.currentStep + 1,
         },
         { merge: true }
       );
 
       getUser();
+
+      const templateParams = {
+        content: "Your Design Questions have been approved",
+        to: singleUser.email,
+      };
+
+      emailjs.send("service_9dpngmi", "template_izthnsq", templateParams).then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
     }
   };
 

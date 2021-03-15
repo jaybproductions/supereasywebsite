@@ -86,17 +86,6 @@ export default function AccountIcon({ user, LogoutUser }) {
           </>
         ) : (
           <>
-            <Link
-              to={"/settings"}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <StyledMenuItem>
-                <ListItemIcon>
-                  <SettingsIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Settings" />
-              </StyledMenuItem>
-            </Link>
             <StyledMenuItem onClick={LogoutUser}>
               <ListItemIcon>
                 <SendIcon fontSize="small" />

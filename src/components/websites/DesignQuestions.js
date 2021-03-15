@@ -5,6 +5,10 @@ import validateDesignForm from "../../validators/validateDesignForm";
 import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
 import { ToastContainer, toast } from "react-toastify";
+import { init } from "emailjs-com";
+import emailjs from "emailjs-com";
+import SendEmail from "../SendEmail";
+init("user_0HgOZL0g5w9HF8Uc69yMW");
 
 const DesignQuestions = () => {
   const { user } = useContext(UserContext);
@@ -52,6 +56,7 @@ const DesignQuestions = () => {
             comments: comments,
           },
           stepStatus: "pending",
+          projectStatus: "Waiting on Design Question Approval",
         },
         { merge: true }
       );
@@ -59,6 +64,24 @@ const DesignQuestions = () => {
         "Thank you for submitting design questions. Please wait for approval to move to next step..."
       );
       getUser();
+
+      const templateParams = {
+        client: user.displayName,
+        businessName: values.businessName,
+        currentWebsite: values.currentWebsite,
+        references: values.references,
+        colors: values.colors,
+        fonts: values.fonts,
+        comments: values.comments,
+      };
+      emailjs.send("service_9dpngmi", "template_ztr2vif", templateParams).then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
     }
   };
 
@@ -77,7 +100,10 @@ const DesignQuestions = () => {
               {" "}
               <Card>
                 <CardContent>
-                  <form style={{ padding: "10px" }}>
+                  <form
+                    style={{ padding: "10px", width: "50%", margin: "auto" }}
+                    id="design"
+                  >
                     <TextField
                       name="businessName"
                       variant="outlined"
@@ -90,10 +116,7 @@ const DesignQuestions = () => {
                       label="Current Website Address"
                       onChange={handleChange}
                     />
-                  </form>
-                  <form
-                    style={{ padding: "10px", margin: "auto", width: "430px" }}
-                  >
+                    <br /> <br />
                     <TextField
                       name="references"
                       variant="outlined"
@@ -101,8 +124,7 @@ const DesignQuestions = () => {
                       onChange={handleChange}
                       fullWidth
                     />
-                  </form>
-                  <form style={{ padding: "10px" }}>
+                    <br /> <br />
                     <TextField
                       name="fonts"
                       variant="outlined"
@@ -115,10 +137,7 @@ const DesignQuestions = () => {
                       label="Colors"
                       onChange={handleChange}
                     />
-                  </form>
-                  <form
-                    style={{ padding: "10px", width: "430px", margin: "auto" }}
-                  >
+                    <br /> <br />
                     <TextField
                       variant="outlined"
                       name="comments"
@@ -129,14 +148,15 @@ const DesignQuestions = () => {
                       maxRows={8}
                       fullWidth
                     />
+                    <br /> <br />
+                    <Button
+                      onClick={handleSubmit}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Submit
+                    </Button>
                   </form>
-                  <Button
-                    onClick={handleSubmit}
-                    variant="contained"
-                    color="primary"
-                  >
-                    Submit
-                  </Button>
                 </CardContent>
               </Card>{" "}
             </>

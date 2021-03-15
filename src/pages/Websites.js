@@ -8,6 +8,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import WebsiteStepper from "../components/websites/WebsiteStepper";
 import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const linkStyle = {
   textDecoration: "none",
@@ -38,10 +39,14 @@ const Websites = () => {
   const [userData, setUserData] = useState(null);
   const [pages, setPages] = useState(null);
   const classes = useStyles();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) return;
     getUser();
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
   }, [user]);
 
   const getUser = async () => {
@@ -92,85 +97,97 @@ const Websites = () => {
 
   return (
     <div className={classes.root}>
-      <div className="stepper" style={{ paddingBottom: "100px" }}>
-        <WebsiteStepper />
-      </div>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={2}>
-            <Grid item xs={12} sm={3} lg={3}>
-              {userData && (
-                <>
-                  {userData.designQuestions && (
-                    <Card style={{ height: "100%" }}>
-                      <CardContent>
-                        <h4>Design Selections </h4>
-                        <br />
-                        {userData && (
-                          <div style={{ fontSize: "14px" }}>
-                            Business Name:{" "}
-                            {userData.designQuestions.businessName}
+      {loading ? (
+        <div style={{ padding: "30px" }}>
+          <CircularProgress />
+        </div>
+      ) : (
+        <>
+          <div
+            className="stepper"
+            style={{ paddingBottom: "100px", paddingTop: "20px" }}
+          >
+            <WebsiteStepper />
+          </div>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={2}>
+                <Grid item xs={12} sm={3} lg={3}>
+                  {userData && (
+                    <>
+                      {userData.designQuestions && (
+                        <Card style={{ height: "100%" }}>
+                          <CardContent>
+                            <h4>Design Selections </h4>
                             <br />
-                            Current Website:{" "}
-                            {userData.designQuestions.currentWebsite}
-                            <br />
-                            References: {
-                              userData.designQuestions.references
-                            }{" "}
-                            <br />
-                            Fonts: {userData.designQuestions.fonts} <br />
-                            Colors: {userData.designQuestions.colors} <br />
-                            Comments: {userData.designQuestions.comments} <br />
-                          </div>
-                        )}
-                        <Button variant="outlined">Request Changes</Button>
-                      </CardContent>
-                    </Card>
+                            {userData && (
+                              <div style={{ fontSize: "14px" }}>
+                                Business Name:{" "}
+                                {userData.designQuestions.businessName}
+                                <br />
+                                Current Website:{" "}
+                                {userData.designQuestions.currentWebsite}
+                                <br />
+                                References:{" "}
+                                {userData.designQuestions.references} <br />
+                                Fonts: {userData.designQuestions.fonts} <br />
+                                Colors: {userData.designQuestions.colors} <br />
+                                Comments: {
+                                  userData.designQuestions.comments
+                                }{" "}
+                                <br />
+                              </div>
+                            )}
+                            <Button variant="outlined">Request Changes</Button>
+                          </CardContent>
+                        </Card>
+                      )}
+                    </>
                   )}
-                </>
-              )}
-            </Grid>
-            <Grid item xs={12} sm={3} lg={3}>
-              {userData && (
-                <>
-                  {userData.hosting && (
-                    <Card style={{ height: "100%" }}>
-                      <CardContent>
-                        <h4>Selected Hosting Package</h4>
-                        <br />
-                        {userData && handleHosting(userData.hosting)}
-                        <Button variant="outlined">Request Changes</Button>
-                      </CardContent>
-                    </Card>
+                </Grid>
+                <Grid item xs={12} sm={3} lg={3}>
+                  {userData && (
+                    <>
+                      {userData.hosting && (
+                        <Card style={{ height: "100%" }}>
+                          <CardContent>
+                            <h4>Selected Hosting Package</h4>
+                            <br />
+                            {userData && handleHosting(userData.hosting)}
+                            <Button variant="outlined">Request Changes</Button>
+                          </CardContent>
+                        </Card>
+                      )}
+                    </>
                   )}
-                </>
-              )}
+                </Grid>
+                <Grid item xs={12} sm={3} lg={3}>
+                  <Card style={{ height: "100%" }}>
+                    <CardContent>
+                      {" "}
+                      <h4>Pages</h4>
+                      {pages &&
+                        pages.map((page, index) => (
+                          <>
+                            <Link
+                              to={`/websites/content/${page}`}
+                              style={{ color: "black" }}
+                            >
+                              <div className="page" style={{ padding: "10px" }}>
+                                {page}
+                              </div>
+                            </Link>
+                          </>
+                        ))}
+                      <Button variant="outlined">Request Additional</Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={3} lg={3}>
-              <Card style={{ height: "100%" }}>
-                <CardContent>
-                  {" "}
-                  <h4>Pages</h4>
-                  {pages &&
-                    pages.map((page, index) => (
-                      <>
-                        <Link
-                          to={`/websites/content/${page}`}
-                          style={{ color: "black" }}
-                        >
-                          <div className="page" style={{ padding: "10px" }}>
-                            {page}
-                          </div>
-                        </Link>
-                      </>
-                    ))}
-                  <Button variant="outlined">Request Additional</Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+          </Grid>{" "}
+        </>
+      )}
     </div>
   );
 };

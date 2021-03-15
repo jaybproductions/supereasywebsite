@@ -5,6 +5,10 @@ import AdminHome from "../components/Admin/AdminHome";
 import "./Home.css";
 import { Button } from "@material-ui/core";
 import GettingStarted from "../components/GettingStarted";
+import { Link } from "react-router-dom";
+import FAQ from "../components/FAQ";
+import Questions from "../components/Questions";
+import HowItWorks from "../components/HowItWorks";
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -44,9 +48,11 @@ const Home = () => {
                           Hello, {user.displayName}. The current status of your
                           project is {userData.projectStatus}
                         </p>
-                        <Button variant="contained" color="primary">
-                          Get Started
-                        </Button>
+                        <Link to="/websites">
+                          <Button variant="contained" color="primary">
+                            Get Started
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </>
@@ -57,6 +63,9 @@ const Home = () => {
         )}
       </div>
       <GettingStarted />
+      <HowItWorks />
+      <FAQ />
+      <Questions />
     </>
   );
 };
