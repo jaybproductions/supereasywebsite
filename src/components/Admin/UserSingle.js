@@ -11,6 +11,7 @@ const UserSingle = () => {
   const { project } = useParams();
   const [singleUser, setSingleUser] = useState(null);
   const [mockupLink, setMockupLink] = useState("");
+  const [stagingLink, setStagingLink] = useState("");
   useEffect(() => {
     getUser();
   }, [project]);
@@ -31,6 +32,7 @@ const UserSingle = () => {
         {
           stepStatus: "started",
           currentStep: singleUser.currentStep + 1,
+          projectStatus: "Selecting Hosting Package",
         },
         { merge: true }
       );
@@ -53,16 +55,60 @@ const UserSingle = () => {
     }
   };
 
-  const handleAddMockupLink = () => {
+  const handleAddMockupLink = async () => {
     if (!singleUser) {
       return;
     } else {
       const updateRef = firebase.db.collection("users").doc(singleUser.id);
-      updateRef.update(
+      await updateRef.update(
         {
           mockupLink: mockupLink,
+          mockupStatus: "pending",
         },
         { merge: true }
+      );
+      const templateParams = {
+        content:
+          "Your Mockup Link has been added. Please go to the websites tab to review.",
+        to: singleUser.email,
+      };
+
+      emailjs.send("service_9dpngmi", "template_izthnsq", templateParams).then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
+    }
+  };
+
+  const handleAddStagingLink = async () => {
+    if (!singleUser) {
+      return;
+    } else {
+      const updateRef = firebase.db.collection("users").doc(singleUser.id);
+      await updateRef.update(
+        {
+          stagingLink: stagingLink,
+          stagingStatus: "pending",
+        },
+        { merge: true }
+      );
+      const templateParams = {
+        content:
+          "Your Staging Site Link has been added. Please go to the websites tab to review.",
+        to: singleUser.email,
+      };
+
+      emailjs.send("service_9dpngmi", "template_izthnsq", templateParams).then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
       );
     }
   };
@@ -74,6 +120,10 @@ const UserSingle = () => {
       return "Hosting Selection";
     } else if (step === 2) {
       return "Mockup Creation/Approval";
+    } else if (step === 3) {
+      return "Final Design and Testing";
+    } else if (step === 4) {
+      return "Launch and Live!";
     }
   };
 
@@ -154,6 +204,23 @@ const UserSingle = () => {
                     />
                     <Button
                       onClick={handleAddMockupLink}
+                      size="md"
+                      variant="contained"
+                      color="primary"
+                    >
+                      Add Link
+                    </Button>
+                    <div style={{ paddingTop: "20px" }} />
+                    <h4>Staging Site Link</h4>
+                    <TextField
+                      variant="outlined"
+                      label="enter staging link here..."
+                      value={stagingLink}
+                      onChange={(e) => setStagingLink(e.target.value)}
+                      size="small"
+                    />
+                    <Button
+                      onClick={handleAddStagingLink}
                       size="md"
                       variant="contained"
                       color="primary"

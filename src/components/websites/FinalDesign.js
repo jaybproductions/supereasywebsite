@@ -9,11 +9,10 @@ import { init } from "emailjs-com";
 import emailjs from "emailjs-com";
 init("user_0HgOZL0g5w9HF8Uc69yMW");
 
-const MockupLink = () => {
+const FinalDesign = () => {
   const { user } = useContext(UserContext);
-  const [mockupLink, setMockupLink] = useState(null);
+  const [stagingLink, setStagingLink] = useState(null);
   const [approved, setApproved] = useState(false);
-  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -22,9 +21,8 @@ const MockupLink = () => {
 
   const getLink = async () => {
     const docRef = await firebase.db.collection("users").doc(user.uid).get();
-    setMockupLink(docRef.data().mockupLink);
-    setUserData(docRef.data());
-    if (docRef.data().mockupStatus === "approved") {
+    setStagingLink(docRef.data().stagingLink);
+    if (docRef.data().stagingStatus === "approved") {
       setApproved(true);
     }
   };
@@ -35,15 +33,13 @@ const MockupLink = () => {
     const updateRef = firebase.db.collection("users").doc(user.uid);
     await updateRef.update(
       {
-        mockupStatus: "approved",
-        currentStep: userData.currentStep + 1,
-        projectStatus: "Mockup Approved, Waiting on Staging Site to be Created",
+        stagingStatus: "approved",
       },
       { merge: true }
     );
     setApproved(true);
     const templateParams = {
-      content: `Mockup has been approved by ${user.displayName}`,
+      content: `Staging Site has been approved by ${user.displayName}`,
       to: "chris@btwebgroup.com",
     };
 
@@ -60,11 +56,11 @@ const MockupLink = () => {
 
   return (
     <div className="mockup-link">
-      {mockupLink ? (
+      {stagingLink ? (
         <>
-          Your Mockup Link <br />
+          Your Staging Site Link <br />
           <div style={{ paddingBottom: "5px" }} />
-          <a href={mockupLink}>
+          <a href={stagingLink}>
             <Fab>
               <LinkIcon />
             </Fab>
@@ -81,11 +77,11 @@ const MockupLink = () => {
           </Button>
         </>
       ) : (
-        <>Please wait for mockup to be created... </>
+        <>Please wait for staging site to be created... </>
       )}
       <ToastContainer />
     </div>
   );
 };
 
-export default MockupLink;
+export default FinalDesign;

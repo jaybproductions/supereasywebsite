@@ -10,6 +10,10 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import { ToastContainer, toast } from "react-toastify";
+import { init } from "emailjs-com";
+import emailjs from "emailjs-com";
+import SendEmail from "../SendEmail";
+init("user_0HgOZL0g5w9HF8Uc69yMW");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +33,7 @@ const HostingOptions = () => {
     intermediate: false,
     advanced: false,
   });
+  const [submitted, setSubmitted] = useState(false);
   const { basic, intermediate, advanced } = state;
   const error = [basic, intermediate, advanced].filter((v) => v).length > 1;
   useEffect(() => {
@@ -71,6 +76,20 @@ const HostingOptions = () => {
         { merge: true }
       );
       console.log(selected);
+      const templateParams = {
+        content: `Customer has chosen their hosting package. They have selected: ${selected}`,
+        to: "chris@btwebgroup.com",
+      };
+      emailjs.send("service_9dpngmi", "template_izthnsq", templateParams).then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
+      getUser();
+      setSubmitted(true);
       toast.success("Thank you for choosing. Please refresh for next step...");
     }
   };
@@ -130,6 +149,7 @@ const HostingOptions = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit}
+                disabled={submitted}
               >
                 Submit
               </Button>

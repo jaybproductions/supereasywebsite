@@ -10,6 +10,7 @@ import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
 import HostingOptions from "./HostingOptions";
 import MockupLink from "./MockupLink";
+import FinalDesign from "./FinalDesign";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,7 +44,7 @@ function getStepContent(stepIndex) {
     case 2:
       return <MockupLink />;
     case 3:
-      return "This is where final testing will go";
+      return <FinalDesign />;
     case 4:
       return "This is where Launch and live will go";
     default:
