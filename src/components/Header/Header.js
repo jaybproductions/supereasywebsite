@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 import { withRouter, Link } from "react-router-dom";
-import UserContext from "../contexts/UserContext";
+import UserContext from "../../contexts/UserContext";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -21,10 +21,10 @@ import {
   Highlight,
   AccountTree,
 } from "@material-ui/icons";
-import "../App.css";
-import logo from "../images/logo.png";
-
+import "../../App.css";
+import logo from "../../images/logo.png";
 import AccountIcon from "./AccountIcon";
+import Footer from "../Footer";
 
 const drawerWidth = 240;
 
@@ -280,7 +280,6 @@ const Header = (props) => {
             </Typography>
           </Toolbar>
         </AppBar>
-
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
@@ -289,6 +288,7 @@ const Header = (props) => {
         >
           <div className={classes.drawerHeader} />
           {props.component}
+          <Footer />
         </main>
       </div>
     </>

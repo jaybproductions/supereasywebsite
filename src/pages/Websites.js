@@ -9,6 +9,7 @@ import WebsiteStepper from "../components/websites/WebsiteStepper";
 import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import PublicIcon from "@material-ui/icons/Public";
 
 const linkStyle = {
   textDecoration: "none",
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textAlign: "center",
     margin: "auto",
-    width: "75%",
+    width: "100%",
   },
   paper: {
     height: 300,
@@ -37,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 const Websites = () => {
   const { user } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
-  const [pages, setPages] = useState(null);
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
 
@@ -51,48 +51,11 @@ const Websites = () => {
 
   const getUser = async () => {
     const docRef = await firebase.db.collection("users").doc(user.uid).get();
-    setUserData(docRef.data());
-    setPages(docRef.data().pages);
-  };
-
-  const handleHosting = (hosting) => {
-    switch (hosting) {
-      case "basic":
-        return (
-          <>
-            <h5>Basic</h5>
-            <ul>
-              <li>Budget Friendly</li>
-              <li>No integrated emails</li>
-              <li>Fully Managed by Client</li>
-            </ul>
-          </>
-        );
-      case "intermediate":
-        return (
-          <>
-            <h5>Intermediate</h5>
-            <ul>
-              <li>Integrated Emails</li>
-              <li>Automatic Plugin Updates and Uptime Monitoring</li>
-              <li>Partially Managed by Client</li>
-            </ul>
-          </>
-        );
-      case "advanced":
-        return (
-          <>
-            <h5>Advanced</h5>
-            <ul>
-              <li>All features of intermediate</li>
-              <li>CDN and Caching for fastest speed available</li>
-              <li>Fully Managed by Us</li>
-            </ul>
-          </>
-        );
-      default:
-        return "You have no selected a package";
-    }
+    const websiteRef = await firebase.db
+      .collection("websites")
+      .doc(user.uid)
+      .get();
+    setUserData(websiteRef.data());
   };
 
   return (
@@ -105,87 +68,139 @@ const Websites = () => {
         <>
           <div
             className="stepper"
-            style={{ paddingBottom: "100px", paddingTop: "20px" }}
+            style={{
+              paddingBottom: "100px",
+              paddingTop: "20px",
+              width: "75%",
+              margin: "auto",
+            }}
           >
             <WebsiteStepper />
           </div>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Grid container justify="center" spacing={2}>
-                <Grid item xs={12} sm={3} lg={3}>
-                  {userData && (
-                    <>
-                      {userData.designQuestions && (
-                        <Card style={{ height: "100%" }}>
-                          <CardContent>
-                            <h4>Design Selections </h4>
-                            <br />
-                            {userData && (
-                              <div style={{ fontSize: "14px" }}>
-                                Business Name:{" "}
-                                {userData.designQuestions.businessName}
-                                <br />
-                                Current Website:{" "}
-                                {userData.designQuestions.currentWebsite}
-                                <br />
-                                References:{" "}
-                                {userData.designQuestions.references} <br />
-                                Fonts: {userData.designQuestions.fonts} <br />
-                                Colors: {userData.designQuestions.colors} <br />
-                                Comments: {
-                                  userData.designQuestions.comments
-                                }{" "}
-                                <br />
-                              </div>
-                            )}
-                            <Button variant="outlined">Request Changes</Button>
-                          </CardContent>
-                        </Card>
-                      )}
-                    </>
-                  )}
-                </Grid>
-                <Grid item xs={12} sm={3} lg={3}>
-                  {userData && (
-                    <>
-                      {userData.hosting && (
-                        <Card style={{ height: "100%" }}>
-                          <CardContent>
-                            <h4>Selected Hosting Package</h4>
-                            <br />
-                            {userData && handleHosting(userData.hosting)}
-                            <Button variant="outlined">Request Changes</Button>
-                          </CardContent>
-                        </Card>
-                      )}
-                    </>
-                  )}
-                </Grid>
-                <Grid item xs={12} sm={3} lg={3}>
-                  <Card style={{ height: "100%" }}>
-                    <CardContent>
-                      {" "}
-                      <h4>Pages</h4>
-                      {pages &&
-                        pages.map((page, index) => (
-                          <>
-                            <Link
-                              to={`/websites/content/${page}`}
-                              style={{ color: "black" }}
+          <div
+            style={{
+              padding: "30px",
+              backgroundColor: "#393034",
+              height: "300px",
+            }}
+          >
+            <h3 style={{ color: "white" }}>Your Info</h3>
+            <div style={{ width: "85%", height: "50%", margin: "auto" }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Grid container justify="center" spacing={2}>
+                    <Grid item xs={12} sm={3} lg={3}>
+                      {userData && (
+                        <>
+                          {userData.designQuestions && (
+                            <Card
+                              style={{
+                                height: "100%",
+                                backgroundColor: "blue",
+                              }}
                             >
-                              <div className="page" style={{ padding: "10px" }}>
-                                {page}
-                              </div>
+                              <CardContent style={{ height: "50%" }}>
+                                {userData && (
+                                  <div style={{ fontSize: "18px" }}>
+                                    <div style={{ paddingTop: "30px" }} />
+                                    <Link
+                                      to="/questionnaire"
+                                      style={{ color: "black" }}
+                                    >
+                                      <BrushIcon
+                                        style={{
+                                          fontSize: "50px",
+                                          color: "white",
+                                        }}
+                                      />
+                                      <br />
+                                      <b style={{ color: "white" }}>
+                                        Design Questions
+                                      </b>
+                                    </Link>
+                                  </div>
+                                )}
+                              </CardContent>
+                            </Card>
+                          )}
+                        </>
+                      )}
+                    </Grid>
+                    <Grid item xs={12} sm={3} lg={3}>
+                      {userData && (
+                        <>
+                          {userData.hosting && (
+                            <Card
+                              style={{
+                                height: "100%",
+                                backgroundColor: "blue",
+                              }}
+                            >
+                              <CardContent>
+                                <div
+                                  style={{
+                                    fontSize: "18px",
+                                    height: "50%",
+                                    margin: "auto",
+                                  }}
+                                >
+                                  <div style={{ paddingTop: "30px" }} />
+                                  <Link
+                                    to="/hosting"
+                                    style={{ color: "black" }}
+                                  >
+                                    <b>
+                                      <PublicIcon
+                                        style={{
+                                          fontSize: "50px",
+                                          color: "white",
+                                        }}
+                                      />
+                                      <br />{" "}
+                                      <b style={{ color: "white" }}>
+                                        Hosting Package
+                                      </b>
+                                    </b>
+                                  </Link>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          )}
+                        </>
+                      )}
+                    </Grid>
+                    <Grid item xs={12} sm={3} lg={3}>
+                      <Card style={{ height: "100%", backgroundColor: "blue" }}>
+                        <CardContent>
+                          <div
+                            style={{
+                              fontSize: "18px",
+                              height: "50%",
+                              margin: "auto",
+                            }}
+                          >
+                            <div style={{ paddingTop: "30px" }} />
+                            <Link to="/pages" style={{ color: "black" }}>
+                              <b>
+                                <DescriptionIcon
+                                  style={{
+                                    fontSize: "50px",
+                                    color: "white",
+                                  }}
+                                />
+                                <br />{" "}
+                                <b style={{ color: "white" }}>Website Pages</b>
+                              </b>
                             </Link>
-                          </>
-                        ))}
-                      <Button variant="outlined">Request Additional</Button>
-                    </CardContent>
-                  </Card>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-          </Grid>{" "}
+              </Grid>{" "}
+            </div>
+          </div>
         </>
       )}
     </div>

@@ -22,9 +22,13 @@ const MockupLink = () => {
 
   const getLink = async () => {
     const docRef = await firebase.db.collection("users").doc(user.uid).get();
-    setMockupLink(docRef.data().mockupLink);
+    const websiteRef = await firebase.db
+      .collection("websites")
+      .doc(user.uid)
+      .get();
+    setMockupLink(websiteRef.data().mockupLink);
     setUserData(docRef.data());
-    if (docRef.data().mockupStatus === "approved") {
+    if (websiteRef.data().mockupStatus === "approved") {
       setApproved(true);
     }
   };
@@ -35,9 +39,14 @@ const MockupLink = () => {
     const updateRef = firebase.db.collection("users").doc(user.uid);
     await updateRef.update(
       {
-        mockupStatus: "approved",
         currentStep: userData.currentStep + 1,
         projectStatus: "Mockup Approved, Waiting on Staging Site to be Created",
+      },
+      { merge: true }
+    );
+    await firebase.db.collection("websites").doc(user.uid).update(
+      {
+        mockupStatus: "approved",
       },
       { merge: true }
     );

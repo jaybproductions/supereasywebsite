@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import firebase from "../../firebase";
+import firebase from "../../../firebase";
 import { Button, Card, CardContent, TextField, Grid } from "@material-ui/core";
 import { update } from "draft-js/lib/DefaultDraftBlockRenderMap";
 import { init } from "emailjs-com";
 import emailjs from "emailjs-com";
+import DesignQuestionsCard from "../AdminUserInfo/DesignQuestionsCard";
 init("user_0HgOZL0g5w9HF8Uc69yMW");
 
 const UserSingle = () => {
@@ -12,15 +13,26 @@ const UserSingle = () => {
   const [singleUser, setSingleUser] = useState(null);
   const [mockupLink, setMockupLink] = useState("");
   const [stagingLink, setStagingLink] = useState("");
+  const [websiteInfo, setWebsiteInfo] = useState(null);
+  const [approved, setApproved] = useState(false);
   useEffect(() => {
     getUser();
   }, [project]);
 
   const getUser = async () => {
     const docRef = await firebase.db.collection("users").doc(project).get();
+    const websiteRef = await firebase.db
+      .collection("websites")
+      .doc(project)
+      .get();
     console.log(docRef.data());
     setSingleUser(docRef.data());
-    setMockupLink(docRef.data().mockupLink);
+    setMockupLink(websiteRef.data().mockupLink);
+    setWebsiteInfo(websiteRef.data());
+    setStagingLink(websiteRef.data().stagingLink);
+    if (docRef.data().designQuestionStatus === "approved") {
+      setApproved(true);
+    }
   };
 
   const handleApprove = () => {
@@ -30,6 +42,7 @@ const UserSingle = () => {
       const updateRef = firebase.db.collection("users").doc(singleUser.id);
       updateRef.update(
         {
+          designQuestionStatus: "approved",
           stepStatus: "started",
           currentStep: singleUser.currentStep + 1,
           projectStatus: "Selecting Hosting Package",
@@ -59,7 +72,7 @@ const UserSingle = () => {
     if (!singleUser) {
       return;
     } else {
-      const updateRef = firebase.db.collection("users").doc(singleUser.id);
+      const updateRef = firebase.db.collection("websites").doc(singleUser.id);
       await updateRef.update(
         {
           mockupLink: mockupLink,
@@ -88,7 +101,7 @@ const UserSingle = () => {
     if (!singleUser) {
       return;
     } else {
-      const updateRef = firebase.db.collection("users").doc(singleUser.id);
+      const updateRef = firebase.db.collection("websites").doc(singleUser.id);
       await updateRef.update(
         {
           stagingLink: stagingLink,
@@ -142,41 +155,18 @@ const UserSingle = () => {
           <div style={{ margin: "auto", width: "50%" }}>
             <Grid container justify="center" spacing={6}>
               <Grid item xs={12}>
-                <Card style={{ width: "100%", margin: "auto" }}>
-                  <CardContent>
-                    {singleUser.designQuestions ? (
-                      <>
-                        {" "}
-                        <h4>Design Questions</h4>
-                        Business Name: {
-                          singleUser.designQuestions.businessName
-                        }{" "}
-                        <br />
-                        Current Website:{" "}
-                        {singleUser.designQuestions.currentWebsite} <br />
-                        References: {singleUser.designQuestions.references}{" "}
-                        <br />
-                        Colors: {singleUser.designQuestions.colors} <br />
-                        Fonts: {singleUser.designQuestions.fonts} <br />
-                        <Button
-                          variant="outlined"
-                          onClick={handleApprove}
-                          disabled={
-                            singleUser.currentStep > 0 ||
-                            singleUser.stepStatus === "approved"
-                          }
-                        >
-                          {singleUser.stepStatus === "approved" ||
-                          singleUser.currentStep > 0
-                            ? "Approved"
-                            : "Approve"}
-                        </Button>{" "}
-                      </>
-                    ) : (
-                      <> Waiting on Design Information </>
-                    )}
-                  </CardContent>
-                </Card>
+                {websiteInfo && (
+                  <DesignQuestionsCard websiteInfo={websiteInfo} />
+                )}
+                <div style={{ paddingTop: "10px" }} />
+                <Button
+                  onClick={handleApprove}
+                  variant="contained"
+                  color="primary"
+                  disabled={approved}
+                >
+                  {approved ? "Approved" : "Approve"}
+                </Button>
               </Grid>
 
               <Grid item xs={6} style={{ margin: "auto" }}>
@@ -185,7 +175,20 @@ const UserSingle = () => {
                 >
                   <CardContent>
                     <h4>Hosting Package</h4>
-                    Client Selected Hosting Package: {singleUser.hosting}
+                    {websiteInfo && (
+                      <>
+                        {websiteInfo.hosting ? (
+                          <>
+                            Client Selected Hosting Package:{" "}
+                            {websiteInfo.hosting}{" "}
+                          </>
+                        ) : (
+                          <>
+                            Please wait for client to choose hosting package.{" "}
+                          </>
+                        )}
+                      </>
+                    )}
                   </CardContent>
                 </Card>
               </Grid>

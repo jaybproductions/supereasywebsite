@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
-import UserList from "../components/Admin/UserList";
+import UserList from "../components/Admin/Projects/UserList";
 
 const Projects = () => {
   const { user } = useContext(UserContext);

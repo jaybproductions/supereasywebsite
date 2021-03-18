@@ -20,7 +20,7 @@ const FinalDesign = () => {
   }, [user]);
 
   const getLink = async () => {
-    const docRef = await firebase.db.collection("users").doc(user.uid).get();
+    const docRef = await firebase.db.collection("websites").doc(user.uid).get();
     setStagingLink(docRef.data().stagingLink);
     if (docRef.data().stagingStatus === "approved") {
       setApproved(true);
@@ -30,7 +30,7 @@ const FinalDesign = () => {
   const handleSubmit = async (e) => {
     if (!user) return;
     e.preventDefault();
-    const updateRef = firebase.db.collection("users").doc(user.uid);
+    const updateRef = firebase.db.collection("websites").doc(user.uid);
     await updateRef.update(
       {
         stagingStatus: "approved",

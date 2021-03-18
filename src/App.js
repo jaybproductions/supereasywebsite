@@ -9,16 +9,18 @@ import Signup from "./pages/Auth/Signup";
 import Websites from "./pages/Websites";
 
 //header import
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Design from "./pages/Design";
 import Additional from "./pages/Additional";
 import Content from "./pages/Content";
 import Marketing from "./pages/Marketing";
 import Projects from "./pages/Projects";
-import UserSingle from "./components/Admin/UserSingle";
+import UserSingle from "./components/Admin/Projects/UserSingle";
 import Login from "./pages/Auth/Login";
-import PageSingle from "./components/PageSingle";
+import PageSingle from "./components/websites/Pages/PageSingle";
 import Forgot from "./pages/Auth/Forgot";
+import Questionnaire from "./components/websites/Questionnaire";
+import Hosting from "./pages/Hosting";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -45,7 +47,7 @@ function App() {
           <Route path="/websites/design">
             <Header component={<Design />} />
           </Route>
-          <Route exact path="/websites/content">
+          <Route exact path="/pages">
             <Header component={<Content />} />
           </Route>
           <Route path="/websites/content/:page">
@@ -65,6 +67,12 @@ function App() {
           </Route>
           <Route path="/login">
             <Header component={<Login />} />
+          </Route>
+          <Route path="/questionnaire">
+            <Header component={<Questionnaire />} />
+          </Route>
+          <Route path="/hosting">
+            <Header component={<Hosting />} />
           </Route>
         </Switch>
       </UserContext.Provider>

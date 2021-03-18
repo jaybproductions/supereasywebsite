@@ -35,17 +35,17 @@ export default function HowItWorks() {
         width: "100%",
         margin: "auto",
         padding: "30px",
-        backgroundColor: "lightgray",
+        backgroundColor: "#393043",
       }}
     >
       {" "}
       <div style={{ width: "50%", margin: "auto" }}>
-        <h4>How it works</h4>
+        <h4 style={{ color: "white" }}>How it works</h4>
         <Timeline align="alternate">
           <TimelineItem>
             <TimelineOppositeContent>
               <Typography variant="body2" color="textSecondary">
-                Step 1
+                <p style={{ color: "white" }}>Step 1</p>
               </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -70,7 +70,7 @@ export default function HowItWorks() {
           <TimelineItem>
             <TimelineOppositeContent>
               <Typography variant="body2" color="textSecondary">
-                Step 2
+                <p style={{ color: "white" }}>Step 2</p>
               </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -94,7 +94,7 @@ export default function HowItWorks() {
           <TimelineItem>
             <TimelineOppositeContent>
               <Typography variant="body2" color="textSecondary">
-                Step 3
+                <p style={{ color: "white" }}>Step 3</p>
               </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -118,7 +118,7 @@ export default function HowItWorks() {
           <TimelineItem>
             <TimelineOppositeContent>
               <Typography variant="body2" color="textSecondary">
-                Step 4
+                <p style={{ color: "white" }}>Step 4</p>
               </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>

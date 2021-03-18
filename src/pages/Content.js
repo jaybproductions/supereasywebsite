@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
 import { Card, CardContent, TextField } from "@material-ui/core";
-import PageList from "../components/PageList";
+import PageList from "../components/./websites/Pages/PageList";
 
 const Content = () => {
   const { user } = useContext(UserContext);
@@ -13,21 +13,12 @@ const Content = () => {
     getData();
   }, [user]);
 
-  const handleChange = (e) => {
-    console.log(e.target.name, e.target.value);
-  };
-
   const getData = async () => {
-    const docRef = await firebase.db.collection("users").doc(user.uid).get();
+    const docRef = await firebase.db.collection("websites").doc(user.uid).get();
     console.log(docRef.data());
     setPages(docRef.data().pages);
   };
-  return (
-    <div className="design">
-      <h1>Content page</h1>
-      {pages && <PageList pages={pages} />}
-    </div>
-  );
+  return <div className="design">{pages && <PageList pages={pages} />}</div>;
 };
 
 export default Content;

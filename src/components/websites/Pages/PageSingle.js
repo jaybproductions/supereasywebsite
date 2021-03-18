@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import firebase from "../firebase";
+import firebase from "../../../firebase";
 import { useParams } from "react-router-dom";
 import { TextField, Button } from "@material-ui/core";
-import UserContext from "../contexts/UserContext";
+import UserContext from "../../../contexts/UserContext";
 import {
   EditorState,
   convertToRaw,
@@ -32,7 +32,7 @@ const PageSingle = () => {
     getData();
   }, [user]);
   const getData = async () => {
-    const docRef = await firebase.db.collection("users").doc(user.uid).get();
+    const docRef = await firebase.db.collection("websites").doc(user.uid).get();
     console.log(docRef.data());
     setUserData(docRef.data());
     const titleString = page + "Info";
@@ -56,17 +56,37 @@ const PageSingle = () => {
     console.log(editorJSON);
   };
 
-  const updateInfo = async () => {
+  const updateInfo = async (e) => {
     console.log(pageInfo);
     if (!user) {
       console.log("waiting to connect");
     } else {
       const titleString = page + "Info";
-      const updateRef = firebase.db.collection("users").doc(user.uid);
+
+      const updateRef = firebase.db.collection("websites").doc(user.uid);
       console.log(titleString);
       updateRef.update(
         {
           [titleString]: pageInfo,
+        },
+        { merge: true }
+      );
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    console.log(pageInfo);
+    if (!user) {
+      console.log("waiting to connect");
+    } else {
+      const titleString = page + "Info";
+      const finalString = page + "InfoStatus";
+      const updateRef = firebase.db.collection("websites").doc(user.uid);
+      console.log(titleString + " submitted for approval");
+      updateRef.update(
+        {
+          [titleString]: pageInfo,
+          [finalString]: "submitted",
         },
         { merge: true }
       );
@@ -96,8 +116,22 @@ const PageSingle = () => {
         />
       </div>
       <br />
-      <Button variant="contained" color="primary" onClick={updateInfo}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={updateInfo}
+        name="update"
+      >
         Update
+      </Button>
+      <div style={{ display: "inline", paddingLeft: "10px" }} />
+      <Button
+        variant="contained"
+        color="primary"
+        name="submit"
+        onClick={handleSubmit}
+      >
+        Submit
       </Button>
       <div style={{ paddingTop: "50px" }}>
         <h4>Your Current Page Content</h4>

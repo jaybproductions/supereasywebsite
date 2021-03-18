@@ -29,7 +29,7 @@ const Questions = () => {
       className="questions"
       style={{
         padding: "30px",
-        backgroundColor: "lightgray",
+        backgroundColor: "#393043",
         height: "100%",
       }}
     >
@@ -39,38 +39,48 @@ const Questions = () => {
           <p>
             Please fill out the form below and we will get back to you ASAP.
           </p>
-          <form id="questions">
-            <TextField
-              name="name"
-              value={name}
-              label="Name"
-              onChange={(e) => setName(e.target.value)}
-              variant="outlined"
-            />
-            <br />
-            <br />
-            <TextField
-              name="email"
-              value={email}
-              label="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              variant="outlined"
-            />
-            <br />
-            <br />
-            <TextField
-              name="comments"
-              value={comments}
-              label="comments"
-              onChange={(e) => setComments(e.target.value)}
-              variant="outlined"
-            />
-            <br />
-            <br />
-            <Button onClick={handleSubmit} variant="contained" color="primary">
-              Submit
-            </Button>
-          </form>
+          <div style={{ width: "70%", margin: "auto" }}>
+            <form id="questions">
+              <TextField
+                name="name"
+                value={name}
+                label="Name"
+                onChange={(e) => setName(e.target.value)}
+                variant="outlined"
+                fullWidth
+              />
+              <br />
+              <br />
+              <TextField
+                name="email"
+                value={email}
+                label="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                variant="outlined"
+                fullWidth
+              />
+              <br />
+              <br />
+              <TextField
+                name="comments"
+                value={comments}
+                label="comments"
+                onChange={(e) => setComments(e.target.value)}
+                variant="outlined"
+                fullWidth
+              />
+              <br />
+              <br />
+              <Button
+                onClick={handleSubmit}
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
         </CardContent>
       </Card>
     </div>

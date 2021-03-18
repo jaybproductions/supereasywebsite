@@ -47,19 +47,27 @@ const DesignQuestions = () => {
       const updateRef = await firebase.db.collection("users").doc(user.uid);
       updateRef.update(
         {
-          designQuestions: {
-            businessName: businessName,
-            currentWebsite: currentWebsite,
-            references: references,
-            colors: colors,
-            fonts: fonts,
-            comments: comments,
-          },
           stepStatus: "pending",
           projectStatus: "Waiting on Design Question Approval",
         },
         { merge: true }
       );
+      await firebase.db
+        .collection("websites")
+        .doc(user.uid)
+        .update(
+          {
+            designQuestions: {
+              businessName: businessName,
+              currentWebsite: currentWebsite,
+              references: references,
+              colors: colors,
+              fonts: fonts,
+              comments: comments,
+            },
+          },
+          { merge: true }
+        );
       toast.success(
         "Thank you for submitting design questions. Please wait for approval to move to next step..."
       );
@@ -109,12 +117,15 @@ const DesignQuestions = () => {
                       variant="outlined"
                       label="Business Name"
                       onChange={handleChange}
+                      fullWidth
                     />
+                    <br /> <div style={{ paddingTop: "15px" }} />
                     <TextField
                       name="currentWebsite"
                       variant="outlined"
                       label="Current Website Address"
                       onChange={handleChange}
+                      fullWidth
                     />
                     <br /> <br />
                     <TextField
@@ -130,12 +141,17 @@ const DesignQuestions = () => {
                       variant="outlined"
                       label="Fonts"
                       onChange={handleChange}
+                      fullWidth
                     />
+                    <br />
+                    <br />
+                    <div style={{ display: "inline", paddingTop: "15px" }} />
                     <TextField
                       name="colors"
                       variant="outlined"
                       label="Colors"
                       onChange={handleChange}
+                      fullWidth
                     />
                     <br /> <br />
                     <TextField
@@ -153,6 +169,7 @@ const DesignQuestions = () => {
                       onClick={handleSubmit}
                       variant="contained"
                       color="primary"
+                      fullWidth
                     >
                       Submit
                     </Button>

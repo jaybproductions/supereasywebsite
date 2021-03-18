@@ -70,8 +70,14 @@ const HostingOptions = () => {
       const updateRef = firebase.db.collection("users").doc(user.uid);
       await updateRef.update(
         {
-          hosting: selected,
           currentStep: userData.currentStep + 1,
+          projectStatus: "Hosting Package Selected, Waiting on Mockup Creation",
+        },
+        { merge: true }
+      );
+      await firebase.db.collection("websites").doc(user.uid).update(
+        {
+          hosting: selected,
         },
         { merge: true }
       );
@@ -110,11 +116,13 @@ const HostingOptions = () => {
                 }
                 label="Basic"
               />
-              <ul>
-                <li>Budget Friendly</li>
-                <li>No integrated emails</li>
-                <li>Fully Managed by Client</li>
-              </ul>
+              <div style={{ textAlign: "left" }}>
+                <ul>
+                  <li>Budget Friendly</li>
+                  <li>No integrated emails</li>
+                  <li>Fully Managed by Client</li>
+                </ul>
+              </div>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -125,11 +133,13 @@ const HostingOptions = () => {
                 }
                 label="Intermediate"
               />
-              <ul>
-                <li>Integrated Emails</li>
-                <li>Automatic Plugin Updates and Uptime Monitoring</li>
-                <li>Partially Managed by Client</li>
-              </ul>
+              <div style={{ textAlign: "left" }}>
+                <ul>
+                  <li>Integrated Emails</li>
+                  <li>Automatic Plugin Updates and Uptime Monitoring</li>
+                  <li>Partially Managed by Client</li>
+                </ul>
+              </div>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -140,11 +150,13 @@ const HostingOptions = () => {
                 }
                 label="Advanced"
               />
-              <ul>
-                <li>All features of intermediate</li>
-                <li>CDN and Caching for fastest speed available</li>
-                <li>Fully Managed by Us</li>
-              </ul>
+              <div style={{ textAlign: "left" }}>
+                <ul>
+                  <li>All features of intermediate</li>
+                  <li>CDN and Caching for fastest speed available</li>
+                  <li>Fully Managed by Us</li>
+                </ul>
+              </div>
               <Button
                 variant="contained"
                 color="primary"

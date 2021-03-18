@@ -51,10 +51,15 @@ const Signup = (props) => {
         lastName: lastName,
         username: name,
         email: email,
-        pages: pageArr,
+
         currentStep: 0,
         stepStatus: "started",
         projectStatus: "started",
+      });
+      firebase.db.collection("websites").doc(newUser).set({
+        pages: pageArr,
+        id: newUser,
+        client: name,
       });
       console.log("You have signed up succsessfully!");
       props.history.push("/home");

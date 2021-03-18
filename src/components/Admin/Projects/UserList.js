@@ -1,5 +1,5 @@
 import React from "react";
-import UserItem from "../Admin/UserItem";
+import UserItem from "./UserItem";
 const UserList = ({ users }) => {
   return (
     <div className="user-list">

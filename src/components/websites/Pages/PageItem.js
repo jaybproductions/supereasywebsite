@@ -6,8 +6,10 @@ const PageItem = ({ page }) => {
   return (
     <>
       <Link to={`/websites/content/${page}`}>
-        <Card style={{ width: "50%", margin: "auto" }}>
-          <CardContent>{page}</CardContent>
+        <Card style={{ width: "25%", margin: "auto" }}>
+          <CardContent>
+            <b>{page}</b>
+          </CardContent>
         </Card>
       </Link>
       <br />
