@@ -31,6 +31,7 @@ const Questions = () => {
         padding: "30px",
         backgroundColor: "#393043",
         height: "100%",
+        paddingBottom: "100px",
       }}
     >
       <Card style={{ width: "50%", margin: "auto" }}>

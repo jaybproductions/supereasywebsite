@@ -7,12 +7,16 @@ import UserContext from "../../contexts/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import { init } from "emailjs-com";
 import emailjs from "emailjs-com";
-import SendEmail from "../SendEmail";
+import {
+  UpdateDesignQuestionsInDB,
+  UpdateStepStatusInDB,
+} from "../utils/UpdateUserDetails";
 init("user_0HgOZL0g5w9HF8Uc69yMW");
 
-const DesignQuestions = () => {
+const DesignQuestions = ({ userData }) => {
   const { user } = useContext(UserContext);
-  const [userData, setUserData] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+
   const INITIAL_VALUES = {
     businessName: "",
     currentWebsite: "",
@@ -20,18 +24,14 @@ const DesignQuestions = () => {
     colors: "",
     fonts: "",
     comments: "",
+    logo: "",
   };
 
-  useEffect(() => {
-    if (!user) return;
-    getUser();
-  }, [user]);
-
-  const getUser = async () => {
-    const docRef = await firebase.db.collection("users").doc(user.uid).get();
-    setUserData(docRef.data());
-  };
   const submitDesign = async () => {
+    if (!user)
+      return toast.error(
+        "There has been an error. Please try logging in again."
+      );
     const {
       businessName,
       currentWebsite,
@@ -40,57 +40,72 @@ const DesignQuestions = () => {
       fonts,
       comments,
     } = values;
-    console.log(businessName);
-    if (!user) {
-      console.log("waiting to connect");
-    } else {
-      const updateRef = await firebase.db.collection("users").doc(user.uid);
-      updateRef.update(
-        {
-          stepStatus: "pending",
-          projectStatus: "Waiting on Design Question Approval",
-        },
-        { merge: true }
-      );
-      await firebase.db
-        .collection("websites")
-        .doc(user.uid)
-        .update(
-          {
-            designQuestions: {
-              businessName: businessName,
-              currentWebsite: currentWebsite,
-              references: references,
-              colors: colors,
-              fonts: fonts,
-              comments: comments,
-            },
-          },
-          { merge: true }
-        );
-      toast.success(
-        "Thank you for submitting design questions. Please wait for approval to move to next step..."
-      );
-      getUser();
 
-      const templateParams = {
-        client: user.displayName,
-        businessName: values.businessName,
-        currentWebsite: values.currentWebsite,
-        references: values.references,
-        colors: values.colors,
-        fonts: values.fonts,
-        comments: values.comments,
-      };
-      emailjs.send("service_9dpngmi", "template_ztr2vif", templateParams).then(
-        function (response) {
-          console.log("SUCCESS!", response.status, response.text);
-        },
-        function (error) {
-          console.log("FAILED...", error);
-        }
-      );
-    }
+    const updatedStepStatus = {
+      stepStatus: "pending",
+      projectStatus: "Waiting on Design Question Approval",
+    };
+    await UpdateStepStatusInDB(user.uid, updatedStepStatus);
+
+    const updatedDoc = {
+      businessName: businessName,
+      currentWebsite: currentWebsite,
+      references: references,
+      colors: colors,
+      fonts: fonts,
+      comments: comments,
+    };
+
+    await UpdateDesignQuestionsInDB(user.uid, updatedDoc);
+    setSubmitted(true);
+
+    toast.success(
+      "Thank you for submitting design questions. Please wait for approval to move to next step..."
+    );
+
+    const templateParams = {
+      client: user.displayName,
+      businessName: values.businessName,
+      currentWebsite: values.currentWebsite,
+      references: values.references,
+      colors: values.colors,
+      fonts: values.fonts,
+      comments: values.comments,
+    };
+    emailjs.send("service_9dpngmi", "template_ztr2vif", templateParams).then(
+      function (response) {
+        console.log("SUCCESS!", response.status, response.text);
+      },
+      function (error) {
+        console.log("FAILED...", error);
+      }
+    );
+  };
+
+  const uploadLogo = async (event) => {
+    console.log(event.target.files[0].name);
+    const fileName = event.target.files[0].name;
+    const fileToUpload = event.target.files[0];
+    const storage = firebase.app.storage();
+    const ref = storage.ref();
+    const imagesRef = ref.child(`logos/${user.uid}/${fileName}`);
+
+    await imagesRef.put(fileToUpload).then((snapshot) => {
+      //get download url
+      console.log("file has been uploaded");
+      //add download url to designQuestions
+    });
+
+    const url = await storage
+      .ref(`logos/${user.uid}/${fileName}`)
+      .getDownloadURL();
+    console.log(url);
+    firebase.db.collection("websites").doc(user.uid).update(
+      {
+        logo: url,
+      },
+      { merge: true }
+    );
   };
 
   const { handleChange, handleSubmit, values, isSubmitting } = useForm(
@@ -103,7 +118,7 @@ const DesignQuestions = () => {
     <div className="design-questions">
       {userData && (
         <>
-          {userData.stepStatus === "started" ? (
+          {userData.stepStatus === "started" && submitted === false ? (
             <>
               {" "}
               <Card>
@@ -125,6 +140,15 @@ const DesignQuestions = () => {
                       variant="outlined"
                       label="Current Website Address"
                       onChange={handleChange}
+                      fullWidth
+                    />
+                    <br /> <br />
+                    <p style={{ textAlign: "left" }}>Upload a Logo</p>
+                    <TextField
+                      name="logo"
+                      variant="outlined"
+                      type="file"
+                      onChange={uploadLogo}
                       fullWidth
                     />
                     <br /> <br />

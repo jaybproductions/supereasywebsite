@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import firebase from "../../firebase";
 import { Button, TextField, Card, CardContent } from "@material-ui/core";
+import { GetUserWebsiteDataFromFirebase } from "../utils/GetUserDetails";
 
 const Questionnaire = () => {
   const { user } = useContext(UserContext);
@@ -12,22 +13,20 @@ const Questionnaire = () => {
 
   useEffect(() => {
     if (!user) return;
-    getData();
+    handleGetDataFromFirebase();
   }, [user]);
 
-  const getData = async () => {
-    const websiteRef = await firebase.db
-      .collection("websites")
-      .doc(user.uid)
-      .get();
-    setUserData(websiteRef.data());
-    setUpdated(websiteRef.data().designQuestions);
+  const handleGetDataFromFirebase = async () => {
+    const websiteData = await GetUserWebsiteDataFromFirebase(user.uid);
+    setUserData(websiteData);
+    setUpdated(websiteData.designQuestions);
+    console.log(userData, websiteData);
   };
 
   async function SubmitChanges() {
     console.log(updated);
     const updateRef = firebase.db.collection("websites").doc(user.uid);
-    const check = updateRef.get();
+    const check = await updateRef.get();
     if (!check.exists) {
       console.log("doc does not exist");
       updateRef.set({
@@ -46,6 +45,32 @@ const Questionnaire = () => {
       );
     }
   }
+
+  const uploadLogo = async (event) => {
+    console.log(event.target.files[0].name);
+    const fileName = event.target.files[0].name;
+    const fileToUpload = event.target.files[0];
+    const storage = firebase.app.storage();
+    const ref = storage.ref();
+    const imagesRef = ref.child(`logos/${user.uid}/${fileName}`);
+
+    await imagesRef.put(fileToUpload).then((snapshot) => {
+      //get download url
+      console.log("file has been uploaded");
+      //add download url to designQuestions
+    });
+
+    const url = await storage
+      .ref(`logos/${user.uid}/${fileName}`)
+      .getDownloadURL();
+    console.log(url);
+    firebase.db.collection("websites").doc(user.uid).update(
+      {
+        logo: url,
+      },
+      { merge: true }
+    );
+  };
 
   const handleChange = (e) => {
     console.log(e.target.value, e.target.name);
@@ -80,6 +105,26 @@ const Questionnaire = () => {
             fullWidth
           />
           <br />
+          <div style={{ padding: "15px" }} />
+          <p style={{ textAlign: "left" }}>Upload a logo</p>
+          <TextField
+            name="logo"
+            placeholder=""
+            type="file"
+            variant="outlined"
+            value={updated.logo}
+            onChange={uploadLogo}
+            fullWidth
+          />
+          <br />
+          {userData.logo ? (
+            <>
+              <p>Your Current Logo</p>
+              <img src={userData.logo} width="300" height="300" />
+            </>
+          ) : (
+            <>No logo uploaded yet</>
+          )}
           <div style={{ padding: "15px" }} />
           <TextField
             label="References"

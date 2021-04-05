@@ -6,11 +6,11 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import DesignQuestions from "./DesignQuestions";
-import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
 import HostingOptions from "./HostingOptions";
 import MockupLink from "./MockupLink";
 import FinalDesign from "./FinalDesign";
+import { GetUserDataFromFirebase } from "../utils/GetUserDetails";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,16 +35,16 @@ function getSteps() {
   ];
 }
 
-function getStepContent(stepIndex) {
+function getStepContent(stepIndex, user) {
   switch (stepIndex) {
     case 0:
-      return <DesignQuestions />;
+      return <DesignQuestions userData={user} />;
     case 1:
-      return <HostingOptions />;
+      return <HostingOptions userData={user} />;
     case 2:
-      return <MockupLink />;
+      return <MockupLink userData={user} />;
     case 3:
-      return <FinalDesign />;
+      return <FinalDesign userData={user} />;
     case 4:
       return "This is where Launch and live will go";
     default:
@@ -57,23 +57,17 @@ export default function WebsiteStepper({ type }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const { user } = useContext(UserContext);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     if (!user) return;
-    console.log(user.uid);
-    handleInitial();
+    handleGetCurrentStepFromUserData();
   }, [user]);
 
-  const handleInitial = async () => {
-    const docRef = await firebase.db.collection("users").doc(user.uid).get();
-    setActiveStep(docRef.data().currentStep);
-  };
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const handleGetCurrentStepFromUserData = async () => {
+    const userData = await GetUserDataFromFirebase(user.uid);
+    setUserData(userData);
+    setActiveStep(userData.currentStep);
   };
 
   const handleReset = () => {
@@ -100,7 +94,7 @@ export default function WebsiteStepper({ type }) {
         ) : (
           <div>
             <Typography className={classes.instructions}>
-              {getStepContent(activeStep)}
+              {userData && getStepContent(activeStep, userData)}
             </Typography>
           </div>
         )}
