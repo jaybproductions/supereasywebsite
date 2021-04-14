@@ -55,6 +55,7 @@ const FAQ = () => {
   return (
     <div
       className="faq"
+      id="faq"
       style={{
         padding: "30px",
 

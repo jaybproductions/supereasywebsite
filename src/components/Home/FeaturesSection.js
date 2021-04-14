@@ -3,7 +3,7 @@ import { ReactComponent as FeaturesImg } from "../../images/FeaturesImg.svg";
 
 function FeaturesSection() {
   return (
-    <div className="features">
+    <div className="features" id="about">
       <div className="left-side">
         <FeaturesImg />
       </div>

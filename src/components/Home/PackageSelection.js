@@ -4,7 +4,7 @@ import { ReactComponent as Basic } from "../../images/Basic.svg";
 
 function PackageSelection() {
   return (
-    <div className="package-section">
+    <div className="package-section" id="pricing">
       <div className="text-section">
         <h3>Choose your Package</h3>
         <p>

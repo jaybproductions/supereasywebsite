@@ -4,14 +4,10 @@ import { withRouter, Link } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import RestoreIcon from "@material-ui/icons/Restore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { Button } from "@material-ui/core";
 import "../../App.css";
 import "../../css/Header.css";
@@ -87,8 +83,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
   userInfo: {
-    textAlign: "left",
     display: "flex",
+    alignItems: "left",
     width: "100%",
   },
 }));
@@ -149,13 +145,52 @@ const Header = (props) => {
             </Typography>
 
             <div className="links">
-              <a>About</a>
-              <a>Features</a>
-              <a>Pricing</a>
-              <a>Testimonials</a>
-              <a>Help</a>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("about")
+                    .scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Features
+              </button>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("pricing")
+                    .scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Pricing
+              </button>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("faq")
+                    .scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                FAQ's
+              </button>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("testimonials")
+                    .scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Testimonials
+              </button>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("questions")
+                    .scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Help
+              </button>
             </div>
-
             <Typography style={{ textAlign: "right" }}>
               {" "}
               <div className={classes.userInfo}>
