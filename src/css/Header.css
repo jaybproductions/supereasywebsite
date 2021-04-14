@@ -10,12 +10,10 @@
 .links > button {
   border-style: none;
   background-color: #fff;
-  margin-left: 30px;
+
   display: inline-block;
   position: relative;
   color: black;
-  padding-left: 25px;
-  padding-right: 25px;
   font-size: 16px;
   cursor: pointer;
 }
