@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
-
+import "../../css/Login.css";
 import validateLogin from "../../validators/validateLogin";
 import useForm from "../../hooks/useForm";
 import firebase from "../../firebase";
@@ -39,8 +39,8 @@ const Login = (props) => {
   }
 
   return (
-    <div className="login" style={{ textAlign: "center", paddingTop: "20px" }}>
-      <Card style={{ width: "50%", margin: "auto" }}>
+    <div className="login">
+      <Card style={{ width: "50%", margin: "auto", paddingTop: "100px" }}>
         <CardContent>
           <img src={logo} width="300px" style={{ paddingBottom: "20px" }} />
           <form lines="full">

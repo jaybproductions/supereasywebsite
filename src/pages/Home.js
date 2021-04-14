@@ -1,14 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../contexts/UserContext";
 import firebase from "../firebase";
-import AdminHome from "../components/Admin/AdminHome";
 import "./Home.css";
-import { Button } from "@material-ui/core";
-import GettingStarted from "../components/GettingStarted";
-import { Link } from "react-router-dom";
-import FAQ from "../components/FAQ";
-import Questions from "../components/Questions";
-import HowItWorks from "../components/HowItWorks";
+import FAQ from "../components/Home/FAQ";
+import Questions from "../components/Home/Questions";
+import HeroSection from "../components/Home/HeroSection";
+import IconsSection from "../components/Home/IconsSection";
+import FeaturesSection from "../components/Home/FeaturesSection";
+import PackageSelection from "../components/Home/PackageSelection";
+import BackedBy from "../components/Home/BackedBy";
+import Testimonials from "../components/Home/Testimonials";
+import Subscribe from "../components/Home/Subscribe";
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -30,40 +32,15 @@ const Home = () => {
   return (
     <>
       <div className="home">
-        {userData && (
-          <>
-            {userData.isAdmin ? (
-              <>
-                <AdminHome user={user} userData={userData} />{" "}
-              </>
-            ) : (
-              <>
-                {" "}
-                {user && (
-                  <>
-                    <div className="hero-image">
-                      <div className="hero-text">
-                        <h1>Welcome to the Super Easy Website Dashboard</h1>
-                        <p>
-                          Hello, {user.displayName}. The current status of your
-                          project is {userData.projectStatus}
-                        </p>
-                        <Link to="/websites">
-                          <Button variant="contained" color="primary">
-                            Get Started
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </>
-            )}
-          </>
-        )}
+        <HeroSection />
+        <IconsSection />
+        <FeaturesSection />
+        <PackageSelection />
+        <BackedBy />
+        <Testimonials />
+        <Subscribe />
       </div>
-      <GettingStarted />
-      <HowItWorks />
+
       <FAQ />
       <Questions />
     </>

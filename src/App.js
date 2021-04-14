@@ -31,7 +31,7 @@ function App() {
     >
       <UserContext.Provider value={{ user, setUser }}>
         <Switch>
-          <Redirect exact from="/" to={!user ? "/login" : "/home"} />
+          <Redirect exact from="/" to={"/home"} />
           <Route path="/home">
             <Header component={<Home />} />
           </Route>

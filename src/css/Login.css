@@ -1,0 +1,11 @@
+.login {
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(
+    252.95deg,
+    #f53838 0.34%,
+    #ffffff 52.42%,
+    #f45656 99.6%,
+    #c85555 99.61%
+  );
+}

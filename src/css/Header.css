@@ -1,0 +1,20 @@
+.links {
+  width: 50%;
+  display: flex;
+  margin: auto;
+  text-align: left;
+  justify-content: space-between;
+  color: black;
+}
+
+.links > a {
+  width: 34px;
+  height: 19px;
+  font-size: 16px;
+  line-height: 19px;
+  margin-right: 10%;
+}
+
+.title {
+  padding-left: 10%;
+}

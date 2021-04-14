@@ -9,22 +9,13 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import RestoreIcon from "@material-ui/icons/Restore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import {
-  HomeOutlined,
-  Public,
-  ContactMail,
-  Highlight,
-  AccountTree,
-} from "@material-ui/icons";
+import { Button } from "@material-ui/core";
 import "../../App.css";
+import "../../css/Header.css";
 import logo from "../../images/logo.png";
-import AccountIcon from "./AccountIcon";
-import Footer from "../Footer";
 
 const drawerWidth = 240;
 
@@ -35,8 +26,8 @@ const linkStyle = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "50%",
-    backgroundColor: "#393034",
+    width: "100%",
+    backgroundColor: "#ffff",
     color: "#ffffff",
     margin: "auto",
   },
@@ -45,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    background: "#393034",
+    background: "#ffff",
+    width: "80%",
     textAlign: "right",
     padding: "10px",
   },
@@ -96,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
   },
   userInfo: {
     textAlign: "left",
+    display: "flex",
     width: "100%",
   },
 }));
@@ -139,34 +132,14 @@ const Header = (props) => {
       <div className="header">
         <CssBaseline />
         <AppBar
-          position="fixed"
+          position="static"
+          elevation={0}
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
         >
-          {userData && (
-            <div
-              className="admin-bar"
-              style={{
-                height: "5px",
-                backgroundColor: "blue",
-                zIndex: "999999",
-                paddingLeft: "0px",
-                paddingBottom: "40px",
-                padding: "15px",
-                margin: "auto",
-                width: "100%",
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              <h6 style={{ width: "50%", margin: "auto" }}>
-                {userData.isAdmin ? "You're an admin" : "Customer"}
-              </h6>
-            </div>
-          )}
           <Toolbar>
-            <Typography variant="h6" noWrap style={{ width: "60%" }}>
+            <Typography variant="h6" noWrap style={{ width: "15%" }}>
               <div className="title">
                 <h3>{props.title}</h3>
                 <Link to="/">
@@ -175,107 +148,21 @@ const Header = (props) => {
               </div>
             </Typography>
 
-            <div
-              className="icons"
-              style={{
-                width: "100%",
-                margin: "auto",
-                textAlign: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              {" "}
-              {userData && (
-                <>
-                  {userData.isAdmin ? (
-                    <>
-                      {" "}
-                      <BottomNavigation
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                        showLabels
-                        className={classes.root}
-                      >
-                        <BottomNavigationAction
-                          component={Link}
-                          to="/home"
-                          label="Home"
-                          icon={<HomeOutlined />}
-                          className={classes.root}
-                          style={{ textDecoration: "none" }}
-                        />
-                        <BottomNavigationAction
-                          component={Link}
-                          to="/projects"
-                          label="Projects"
-                          icon={<AccountTree />}
-                          className={classes.root}
-                          style={{ textDecoration: "none" }}
-                        />{" "}
-                        <BottomNavigationAction
-                          component={Link}
-                          to="/marketing"
-                          label="Marketing"
-                          icon={<Highlight />}
-                          className={classes.root}
-                          style={{ textDecoration: "none" }}
-                        />
-                      </BottomNavigation>{" "}
-                    </>
-                  ) : (
-                    <>
-                      {" "}
-                      <BottomNavigation
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                        showLabels
-                        className={classes.root}
-                      >
-                        <BottomNavigationAction
-                          component={Link}
-                          to="/home"
-                          label="Home"
-                          icon={<HomeOutlined />}
-                          className={classes.root}
-                          style={{ textDecoration: "none" }}
-                        />
-                        <BottomNavigationAction
-                          component={Link}
-                          to="/websites"
-                          label="Websites"
-                          icon={<Public />}
-                          className={classes.root}
-                          style={{ textDecoration: "none" }}
-                        />{" "}
-                        <BottomNavigationAction
-                          component={Link}
-                          to="/marketing"
-                          label="Marketing"
-                          icon={<Highlight />}
-                          className={classes.root}
-                          style={{ textDecoration: "none" }}
-                        />
-                      </BottomNavigation>
-                    </>
-                  )}
-                </>
-              )}
+            <div className="links">
+              <a>About</a>
+              <a>Features</a>
+              <a>Pricing</a>
+              <a>Testimonials</a>
+              <a>Help</a>
             </div>
 
             <Typography style={{ textAlign: "right" }}>
               {" "}
               <div className={classes.userInfo}>
-                {user ? (
-                  <>
-                    <AccountIcon user={user} LogoutUser={LogoutUser} />{" "}
-                  </>
-                ) : (
-                  <></>
-                )}
+                <Button>Sign In</Button>
+                <Button variant="outlined" color="secondary">
+                  Buy Now
+                </Button>
               </div>
             </Typography>
           </Toolbar>
@@ -284,11 +171,9 @@ const Header = (props) => {
           className={clsx(classes.content, {
             [classes.contentShift]: open,
           })}
-          style={{ paddingTop: "15px" }}
         >
           <div className={classes.drawerHeader} />
           {props.component}
-          <Footer />
         </main>
       </div>
     </>

@@ -29,7 +29,6 @@ const Questions = () => {
       className="questions"
       style={{
         padding: "30px",
-        backgroundColor: "#393043",
         height: "100%",
         paddingBottom: "100px",
       }}
@@ -75,7 +74,7 @@ const Questions = () => {
               <Button
                 onClick={handleSubmit}
                 variant="contained"
-                color="primary"
+                color="secondary"
                 fullWidth
               >
                 Submit
