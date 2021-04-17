@@ -40,8 +40,8 @@ const Login = (props) => {
 
   return (
     <div className="login">
-      <Card style={{ width: "50%", margin: "auto", paddingTop: "100px" }}>
-        <CardContent>
+      <Card style={{ width: "50%", margin: "auto" }}>
+        <CardContent style={{ width: "50%", margin: "auto" }}>
           <img src={logo} width="300px" style={{ paddingBottom: "20px" }} />
           <form lines="full">
             <TextField

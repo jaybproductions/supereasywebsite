@@ -1,0 +1,113 @@
+.dashboard {
+  display: grid;
+  place-items: center;
+  grid-template-rows: 100px;
+  grid-auto-rows: 70%;
+  grid-template-columns: auto;
+  background-color: lightslategrey;
+  height: 100vh;
+}
+
+.glass {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  position: relative;
+  width: 1232px;
+  height: 100%;
+
+  background: linear-gradient(
+    116.79deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.12) 99.45%
+  );
+  backdrop-filter: blur(100px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 30px;
+}
+
+.sidebar {
+  position: relative;
+
+  width: 413px;
+  height: 100%;
+
+  background: linear-gradient(
+    116.79deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.12) 99.45%
+  );
+  backdrop-filter: blur(100px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 30px;
+}
+
+.sidebar-container {
+  display: grid;
+  padding-top: 10px;
+  place-items: center;
+}
+
+.default-user-pic {
+  width: 151px;
+  height: 154px;
+
+  background: url(../images/defaultpic.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 90px;
+}
+
+.sidebar-links {
+  padding-top: 20px;
+  display: grid;
+}
+
+.sidebar-links > button {
+  width: 200px;
+  height: 40px;
+  margin: 10px;
+}
+
+.name {
+  padding-top: 0.5rem;
+}
+
+.main-content {
+  display: grid;
+}
+
+.cards {
+  padding: 10px;
+}
+
+.dashboard-card {
+  padding: 10px;
+  height: 175px;
+}
+
+.cardinfo-container {
+  display: grid;
+  grid-auto-rows: 1;
+  grid-template-columns: 20% 80%;
+}
+
+.assigned-to {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 33px;
+  display: flex;
+}
+
+.card-title {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 42px;
+}

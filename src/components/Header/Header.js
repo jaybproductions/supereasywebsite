@@ -33,9 +33,10 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     background: "#ffff",
-    width: "80%",
+    width: "50%",
     textAlign: "right",
     padding: "10px",
+    margin: "auto",
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -58,23 +59,8 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 0),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(0),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
+  drawerHeader: {},
+  content: {},
   contentShift: {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
@@ -194,7 +180,9 @@ const Header = (props) => {
             <Typography style={{ textAlign: "right" }}>
               {" "}
               <div className={classes.userInfo}>
-                <Button>Sign In</Button>
+                <Button to="/login" component={Link}>
+                  Sign In
+                </Button>
                 <Button variant="outlined" color="secondary">
                   Buy Now
                 </Button>

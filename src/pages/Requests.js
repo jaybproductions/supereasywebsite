@@ -1,11 +1,11 @@
 import React from "react";
 
-const Additional = () => {
+const Requests = () => {
   return (
     <div className="design">
-      <h1>Additional page</h1>
+      <h1>Requests page</h1>
     </div>
   );
 };
 
-export default Additional;
+export default Requests;

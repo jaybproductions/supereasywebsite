@@ -82,7 +82,11 @@ const Questionnaire = () => {
   return (
     <div
       className="questionnaire"
-      style={{ padding: "30px", backgroundColor: "#393034" }}
+      style={{
+        padding: "30px",
+        backgroundColor: "lightslategrey",
+        minHeight: "100vh",
+      }}
     >
       <h1 style={{ color: "white" }}>Your selections.</h1>
       {userData && (

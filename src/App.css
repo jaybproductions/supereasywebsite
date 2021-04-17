@@ -1,22 +1,18 @@
-html,
-body {
+body,
+html {
+  min-height: 100%;
   height: 100%;
+  width: 100%;
+  margin: auto;
 }
 
 .App {
-  text-align: center;
+  width: 100vw;
+  margin: auto;
+  min-height: 100vh;
 }
 
-.icon {
-  text-align: center;
-  padding: "10px";
-}
-
-.icon a:hover {
-  background-color: black;
-}
-
-.websites {
-  text-align: center;
-  margin: "auto";
+.design {
+  background-color: lightslategrey;
+  min-height: 100vh;
 }
