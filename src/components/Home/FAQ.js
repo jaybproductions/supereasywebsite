@@ -62,7 +62,7 @@ const FAQ = () => {
         height: "100%",
       }}
     >
-      <h5>FAQ's</h5>
+      <h4>FAQ's</h4>
       <div style={{ width: "50%", margin: "auto" }}>
         <Accordion
           square
