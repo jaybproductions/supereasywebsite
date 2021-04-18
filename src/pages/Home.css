@@ -77,6 +77,12 @@ li {
   padding: 100px;
 }
 
+.package-img {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
 .package-one {
   position: relative;
   width: 85%;
@@ -119,6 +125,7 @@ li {
 
 .package-title {
   font-weight: bold;
+  text-align: center;
 }
 
 .price {
