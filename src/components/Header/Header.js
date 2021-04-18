@@ -180,12 +180,28 @@ const Header = (props) => {
             <Typography style={{ textAlign: "right" }}>
               {" "}
               <div className={classes.userInfo}>
-                <Button to="/login" component={Link}>
-                  Sign In
-                </Button>
-                <Button variant="outlined" color="secondary">
-                  Buy Now
-                </Button>
+                {user ? (
+                  <>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      to="/dashboard"
+                      component={Link}
+                    >
+                      Go To Dashboard
+                    </Button>{" "}
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <Button to="/login" component={Link}>
+                      Sign In
+                    </Button>
+                    <Button variant="outlined" color="secondary">
+                      Buy Now
+                    </Button>
+                  </>
+                )}
               </div>
             </Typography>
           </Toolbar>
