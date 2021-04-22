@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
 import UserList from "../components/Admin/Projects/UserList";
+import "../css/Admin.css";
 
 const Projects = () => {
   const { user } = useContext(UserContext);
@@ -31,7 +32,9 @@ const Projects = () => {
   };
   return (
     <div className="projects">
-      <h3>Current Projects</h3>
+      <div className="heading">
+        <h3>Current Projects</h3>
+      </div>
       {userData && <UserList users={userData} />}
     </div>
   );

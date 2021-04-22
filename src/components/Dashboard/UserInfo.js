@@ -5,7 +5,9 @@ function UserInfo({ userInfo }) {
     <div className="user-info">
       <div className="default-user-pic"></div>
       <div className="name">
-        <h4>Hello, {userInfo.firstName}</h4>
+        <h4>
+          {userInfo.firstName} {userInfo.lastName}
+        </h4>
       </div>
     </div>
   );

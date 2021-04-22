@@ -80,17 +80,9 @@ const Questionnaire = () => {
     }));
   };
   return (
-    <div
-      className="questionnaire"
-      style={{
-        padding: "30px",
-        backgroundColor: "lightslategrey",
-        minHeight: "100vh",
-      }}
-    >
-      <h1 style={{ color: "white" }}>Your selections.</h1>
+    <div className="questionnaire">
       {userData && (
-        <Card style={{ padding: "30px", width: "50%", margin: "auto" }}>
+        <Card style={{ padding: "30px", width: "100%", margin: "auto" }}>
           <TextField
             label="BusinessName"
             name="businessName"

@@ -7,11 +7,12 @@ import Finalimg from "../images/finalapproval.jfif";
 import "../css/Dashboard.css";
 import { GetUserDataFromFirebase } from "../components/utils/GetUserDetails";
 import UserContext from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 function Dashboard() {
   const { user } = useContext(UserContext);
   const [userInfo, setUserInfo] = useState(null);
-
+  let history = useHistory();
   useEffect(() => {
     if (!user) return;
     handleGetUserDataFromFirebase();
@@ -19,6 +20,7 @@ function Dashboard() {
 
   const handleGetUserDataFromFirebase = async () => {
     const data = await GetUserDataFromFirebase(user.uid);
+    if (data.isAdmin) return history.push("/admin/home");
     setUserInfo(data);
   };
 

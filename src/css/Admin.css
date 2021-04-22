@@ -1,0 +1,21 @@
+.projects {
+  display: grid;
+}
+
+.user-single {
+  display: grid;
+  place-items: center;
+}
+
+.website-info-card {
+  display: grid;
+}
+
+.admin-home {
+  display: grid;
+  place-items: center;
+}
+
+.heading {
+  text-align: center;
+}

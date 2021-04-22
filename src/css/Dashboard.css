@@ -1,7 +1,7 @@
 .dashboard {
   display: grid;
   place-items: center;
-  grid-template-rows: 100px;
+  grid-template-rows: 20%;
   grid-auto-rows: 70%;
   grid-template-columns: auto;
   background-color: lightslategrey;
@@ -73,7 +73,8 @@
 }
 
 .name {
-  padding-top: 0.5rem;
+  text-align: center;
+  padding: 0.6rem;
 }
 
 .main-content {

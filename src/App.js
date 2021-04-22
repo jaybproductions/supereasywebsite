@@ -23,6 +23,8 @@ import Hosting from "./pages/Hosting";
 import Dashboard from "./pages/Dashboard";
 import Requests from "./pages/Requests";
 
+import AdminContainer from "./components/Admin/AdminContainer";
+
 function App() {
   const [user, setUser] = useAuth();
   return (
@@ -50,24 +52,14 @@ function App() {
             <Header component={<Design />} />
           </Route>
           <Route exact path="/pages" component={Content} />
-
           <Route path="/websites/content/:page" component={PageSingle} />
-
           <Route path="/requests" component={Requests} />
           <Route path="/marketing">
             <Header component={<Marketing />} />
           </Route>
-          <Route exact path="/projects">
-            <Header component={<Projects />} />
-          </Route>
-          <Route path="/project/:project">
-            <Header component={<UserSingle />} />
-          </Route>
-
+          <Route path="/admin" component={AdminContainer} />
           <Route path="/questionnaire" component={Questionnaire} />
-          <Route path="/hosting">
-            <Header component={<Hosting />} />
-          </Route>
+          <Route path="/hosting" component={Hosting} />
         </Switch>
       </UserContext.Provider>
     </div>

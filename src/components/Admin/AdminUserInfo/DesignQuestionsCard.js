@@ -9,7 +9,9 @@ const DesignQuestionsCard = ({ websiteInfo }) => {
           <h4>Design Questions</h4>
           <h5>Client Logo</h5>
           {websiteInfo.logo ? (
-            <img src={websiteInfo.logo} width="200" height="200" />
+            <center>
+              <img src={websiteInfo.logo} width="200" height="200" />
+            </center>
           ) : (
             <>Client has not uploaded logo... </>
           )}

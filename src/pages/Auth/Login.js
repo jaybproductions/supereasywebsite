@@ -28,12 +28,9 @@ const Login = (props) => {
     try {
       await firebase.login(email, password);
 
-      console.log("You are now logged in!");
-      console.log(props);
       props.history.push("/dashboard");
     } catch (err) {
       console.error("authentication error", err);
-      console.log(err.message);
     }
     setBusy(false);
   }

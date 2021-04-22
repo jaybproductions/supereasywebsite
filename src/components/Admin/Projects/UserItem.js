@@ -17,7 +17,7 @@ const UserItem = ({ user }) => {
       className="user-item"
       style={{ padding: "10px", width: "40%", margin: "auto" }}
     >
-      <Link to={`/project/${user.id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/admin/project/${user.id}`} style={{ textDecoration: "none" }}>
         <Card>
           <CardContent>
             <h5>
