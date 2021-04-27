@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import WebsiteStepper from "../components/websites/WebsiteStepper";
+import CheckoutStepper from "../components/Checkout/CheckoutStepper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Websites = () => {
+const Checkout = () => {
   const classes = useStyles();
 
   return (
@@ -36,10 +36,10 @@ const Websites = () => {
           margin: "auto",
         }}
       >
-        <WebsiteStepper />
+        <CheckoutStepper />
       </div>
     </div>
   );
 };
 
-export default Websites;
+export default Checkout;

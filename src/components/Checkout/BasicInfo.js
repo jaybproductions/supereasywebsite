@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TextField, Card, CardContent, Button } from "@material-ui/core";
-
-const handleChange = () => {};
-
-const handleSubmit = () => {};
+import CheckoutContext from "../../contexts/CheckoutContext";
 
 function BasicInfo() {
+  const { checkoutInfo, setCheckoutInfo } = useContext(CheckoutContext);
+
+  const handleChange = (e) => {
+    setCheckoutInfo((previousValues) => ({
+      ...previousValues,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <div className="basic-info">
       <Card>
@@ -56,14 +62,6 @@ function BasicInfo() {
               fullWidth
             />
             <br /> <br />
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              color="primary"
-              fullWidth
-            >
-              Submit
-            </Button>
           </form>
         </CardContent>
       </Card>

@@ -48,7 +48,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <h2 style={{ color: "white" }}>
+      <h2 style={{ color: "rgb(77, 94, 129)" }}>
         Welcome To Super Easy Website Dashboard
       </h2>
       {userInfo && (

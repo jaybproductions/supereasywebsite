@@ -1,20 +1,16 @@
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-
+import React, { useState } from "react";
 import useAuth from "./hooks/useAuth";
 import UserContext from "./contexts/UserContext";
 //Page Imports
 import Home from "./pages/Home";
-import Signup from "./pages/Auth/Signup";
-import Websites from "./pages/Websites";
 
 //header import
 import Header from "./components/Header/Header";
 import Design from "./pages/Design";
 import Content from "./pages/Content";
 import Marketing from "./pages/Marketing";
-import Projects from "./pages/Projects";
-import UserSingle from "./components/Admin/Projects/UserSingle";
 import Login from "./pages/Auth/Login";
 import PageSingle from "./components/websites/Pages/PageSingle";
 import Forgot from "./pages/Auth/Forgot";
@@ -24,9 +20,28 @@ import Dashboard from "./pages/Dashboard";
 import Requests from "./pages/Requests";
 
 import AdminContainer from "./components/Admin/AdminContainer";
+import Checkout from "./pages/Checkout";
+import CheckoutContext from "./contexts/CheckoutContext";
 
 function App() {
   const [user, setUser] = useAuth();
+  const [checkoutInfo, setCheckoutInfo] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    businessName: "",
+    businessAddress: "",
+    businessInfo: "",
+    references: "",
+    fonts: "",
+    colors: "",
+    comments: "",
+    logo_url: "",
+
+    pageArr: [],
+  });
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
@@ -36,14 +51,13 @@ function App() {
             <Header component={<Home />} />
           </Route>
           <Route path="/login" component={Login} />
-          <Route path="/signup">
-            <Header component={<Signup />} />
-          </Route>
-          <Route path="/forgot">
-            <Header component={<Forgot />} />
-          </Route>
+
+          <Route path="/forgot" component={Forgot} />
+
           <Route path="/dashboard" component={Dashboard} />
-          <Route exact path="/checkout" component={Websites} />
+          <CheckoutContext.Provider value={{ checkoutInfo, setCheckoutInfo }}>
+            <Route exact path="/checkout" component={Checkout} />
+          </CheckoutContext.Provider>
           <Route path="/websites/design">
             <Header component={<Design />} />
           </Route>

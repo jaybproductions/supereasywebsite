@@ -25,29 +25,26 @@ function DashboardCard({ cardInfo }) {
   return (
     <Link to={cardInfo.url}>
       <div className="dashboard-card">
-        <Card style={{ height: "150px", borderRadius: "30px" }}>
-          <CardContent style={{ height: "125" }}>
+        <Card style={{ borderRadius: "30px" }}>
+          <CardContent>
             <div className="cardinfo-container">
               <div className="card-photo">
-                <img src={cardInfo.picture} width="125px" height="100px" />
+                <img src={cardInfo.picture} width="100%" height="100%" />
               </div>
               <div className="content-container">
                 <div className="card-title">{cardInfo.title}</div>
-                <div className="assigned-to">
-                  Assigned To: {cardInfo.assignedTo}
-                  <p
-                    style={{
-                      display: "flex",
-                      color: "#10F2AC",
-                      fontFamily: "Poppins",
-                      fontStyle: "Bold",
-                      fontSize: "28px",
-                      paddingLeft: "300px",
-                    }}
-                  >
-                    {cardInfo.progress}%
-                  </p>
-                </div>
+
+                <p
+                  style={{
+                    display: "flex",
+                    color: "#10F2AC",
+                    fontFamily: "Poppins",
+                    fontStyle: "Bold",
+                    fontSize: "28px",
+                  }}
+                >
+                  {cardInfo.progress}%
+                </p>
 
                 <div className="progress-bar">
                   <BorderLinearProgress

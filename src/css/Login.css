@@ -1,5 +1,7 @@
 .login {
-  display: flex;
-  align-content: center;
-  height: 100vh;
+  padding-top: 20px;
+  display: grid;
+  width: 50%;
+  margin: auto;
+  place-items: center;
 }

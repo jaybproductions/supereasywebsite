@@ -11,27 +11,22 @@ import {
   UpdateDesignQuestionsInDB,
   UpdateStepStatusInDB,
 } from "../utils/UpdateUserDetails";
+import CheckoutContext from "../../contexts/CheckoutContext";
 init("user_0HgOZL0g5w9HF8Uc69yMW");
 
 const DesignQuestions = ({ userData }) => {
   const { user } = useContext(UserContext);
   const [submitted, setSubmitted] = useState(false);
 
-  const INITIAL_VALUES = {
-    businessName: "",
-    currentWebsite: "",
-    references: "",
-    colors: "",
-    fonts: "",
-    comments: "",
-    logo: "",
+  const { checkoutInfo, setCheckoutInfo } = useContext(CheckoutContext);
+  const handleChange = (e) => {
+    setCheckoutInfo((previousValues) => ({
+      ...previousValues,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const submitDesign = async () => {
-    if (!user)
-      return toast.error(
-        "There has been an error. Please try logging in again."
-      );
     const {
       businessName,
       currentWebsite,
@@ -39,7 +34,7 @@ const DesignQuestions = ({ userData }) => {
       colors,
       fonts,
       comments,
-    } = values;
+    } = checkoutInfo;
 
     const updatedStepStatus = {
       stepStatus: "pending",
@@ -65,12 +60,12 @@ const DesignQuestions = ({ userData }) => {
 
     const templateParams = {
       client: user.displayName,
-      businessName: values.businessName,
-      currentWebsite: values.currentWebsite,
-      references: values.references,
-      colors: values.colors,
-      fonts: values.fonts,
-      comments: values.comments,
+      businessName: businessName,
+      currentWebsite: currentWebsite,
+      references: references,
+      colors: colors,
+      fonts: fonts,
+      comments: comments,
     };
     emailjs.send("service_9dpngmi", "template_ztr2vif", templateParams).then(
       function (response) {
@@ -88,7 +83,9 @@ const DesignQuestions = ({ userData }) => {
     const fileToUpload = event.target.files[0];
     const storage = firebase.app.storage();
     const ref = storage.ref();
-    const imagesRef = ref.child(`logos/${values.businessName}}/${fileName}`);
+    const imagesRef = ref.child(
+      `logos/${checkoutInfo.businessName}}/${fileName}`
+    );
 
     await imagesRef.put(fileToUpload).then((snapshot) => {
       //get download url
@@ -108,12 +105,6 @@ const DesignQuestions = ({ userData }) => {
     );
   };
 
-  const { handleChange, handleSubmit, values, isSubmitting } = useForm(
-    INITIAL_VALUES,
-    validateDesignForm,
-    submitDesign
-  );
-
   return (
     <div className="design-questions">
       <Card>
@@ -122,35 +113,19 @@ const DesignQuestions = ({ userData }) => {
             style={{ padding: "10px", width: "50%", margin: "auto" }}
             id="design"
           >
-            <TextField
-              name="businessName"
-              variant="outlined"
-              label="Business Name"
-              onChange={handleChange}
-              fullWidth
-            />
-            <br /> <div style={{ paddingTop: "15px" }} />
-            <TextField
-              name="currentWebsite"
-              variant="outlined"
-              label="Current Website Address"
-              onChange={handleChange}
-              fullWidth
-            />
-            <br /> <br />
-            <p style={{ textAlign: "left" }}>Upload a Logo</p>
+            {/*<p style={{ textAlign: "left" }}>Upload a Logo</p>
             <TextField
               name="logo"
               variant="outlined"
               type="file"
               onChange={uploadLogo}
               fullWidth
-            />
+            />*/}
             <br /> <br />
             <TextField
               name="references"
               variant="outlined"
-              label="References"
+              label="Design References"
               onChange={handleChange}
               fullWidth
             />
@@ -158,7 +133,7 @@ const DesignQuestions = ({ userData }) => {
             <TextField
               name="fonts"
               variant="outlined"
-              label="Fonts"
+              label="Preferred Fonts"
               onChange={handleChange}
               fullWidth
             />
@@ -168,7 +143,7 @@ const DesignQuestions = ({ userData }) => {
             <TextField
               name="colors"
               variant="outlined"
-              label="Colors"
+              label="Preferred Colors"
               onChange={handleChange}
               fullWidth
             />
@@ -176,22 +151,13 @@ const DesignQuestions = ({ userData }) => {
             <TextField
               variant="outlined"
               name="comments"
-              label="Comments"
+              label="Additional Comments"
               onChange={handleChange}
               multiline
               rows={4}
-              maxRows={8}
               fullWidth
             />
             <br /> <br />
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              color="primary"
-              fullWidth
-            >
-              Submit
-            </Button>
           </form>
         </CardContent>
       </Card>

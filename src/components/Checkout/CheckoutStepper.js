@@ -7,12 +7,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import DesignQuestions from "./DesignQuestions";
 import UserContext from "../../contexts/UserContext";
-import HostingOptions from "./HostingOptions";
-import MockupLink from "./MockupLink";
-import FinalDesign from "./FinalDesign";
 import { GetUserDataFromFirebase } from "../utils/GetUserDetails";
 import BasicInfo from "./BasicInfo";
 import BusinessInfo from "./BusinessInfo";
+import CheckoutContext from "../../contexts/CheckoutContext";
+import { toast, ToastContainer } from "react-toastify";
+import FinalCheckout from "./FinalCheckout";
+import firebase from "../../firebase";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,37 +47,79 @@ function getStepContent(stepIndex) {
     case 2:
       return <DesignQuestions />;
     case 3:
-      return <FinalDesign />;
+      return <FinalCheckout />;
 
     default:
       return "Unknown stepIndex";
   }
 }
 
-export default function WebsiteStepper({ type }) {
+export default function CheckoutStepper({ type }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const { user } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    if (!user) return;
-    handleGetCurrentStepFromUserData();
-  }, [user]);
-
-  const handleGetCurrentStepFromUserData = async () => {
-    const userData = await GetUserDataFromFirebase(user.uid);
-    setUserData(userData);
-    setActiveStep(userData.currentStep);
-  };
+  const { checkoutInfo } = useContext(CheckoutContext);
 
   const handleReset = () => {
     setActiveStep(0);
   };
 
   const handleNext = () => {
+    /*if (!checkoutInfo.email) {
+      toast.error("Email is required");
+      return;
+    }
+    if (activeStep === 1) {
+      if (!checkoutInfo.businessName) {
+        toast.error("Business Name is Required");
+        return;
+      }
+    }
+    console.log(checkoutInfo); */
+    if (activeStep === steps.length - 1) {
+      handleAddUser();
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+    console.log(checkoutInfo);
+  };
+
+  const handleAddUser = async () => {
+    const newUser = await firebase.register(
+      checkoutInfo.firstName,
+      checkoutInfo.email,
+      checkoutInfo.password
+    );
+    firebase.db.collection("users").doc(newUser).set({
+      id: newUser,
+      isAdmin: false,
+      firstName: checkoutInfo.firstName,
+      lastName: checkoutInfo.lastName,
+      businessName: checkoutInfo.businessName,
+      phone: checkoutInfo.phone,
+      username: checkoutInfo.email,
+      email: checkoutInfo.email,
+      currentStep: 0,
+      stepStatus: "started",
+      projectStatus: "started",
+    });
+    firebase.db
+      .collection("websites")
+      .doc(newUser)
+      .set({
+        pages: checkoutInfo.pageArr,
+        id: newUser,
+        client: checkoutInfo.email,
+        designQuestions: {
+          logo_url: "",
+          references: checkoutInfo.references,
+          fonts: checkoutInfo.fonts,
+          colors: checkoutInfo.colors,
+          comments: checkoutInfo.comments,
+        },
+      });
   };
 
   const handleBack = () => {
@@ -95,7 +139,10 @@ export default function WebsiteStepper({ type }) {
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>
-              All steps completed
+              Thank you for signing up for Super Easy Website! <br />
+              <br />
+              You will recieve an email with next steps shortly. <br /> <br />
+              Click <Link to="/dashboard">here</Link> to go to the Dashboard
             </Typography>
             <Button onClick={handleReset}>Reset</Button>
           </div>
@@ -116,6 +163,7 @@ export default function WebsiteStepper({ type }) {
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>
             </div>
+            <ToastContainer />
           </div>
         )}
       </div>

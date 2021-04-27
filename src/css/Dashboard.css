@@ -4,7 +4,7 @@
   grid-template-rows: 20%;
   grid-auto-rows: 70%;
   grid-template-columns: auto;
-  background-color: lightslategrey;
+  background-color: white;
   height: 100vh;
 }
 
@@ -12,7 +12,7 @@
   display: grid;
   grid-template-columns: 35% 65%;
   position: relative;
-  width: 1232px;
+  width: 75%;
   height: 100%;
 
   background: linear-gradient(
@@ -29,7 +29,7 @@
 .sidebar {
   position: relative;
 
-  width: 413px;
+  width: 75%;
   height: 100%;
 
   background: linear-gradient(
@@ -50,7 +50,7 @@
 }
 
 .default-user-pic {
-  width: 151px;
+  width: 110%;
   height: 154px;
 
   background: url(../images/defaultpic.png);
@@ -87,22 +87,13 @@
 
 .dashboard-card {
   padding: 10px;
-  height: 175px;
+  height: 30%;
 }
 
 .cardinfo-container {
   display: grid;
   grid-auto-rows: 1;
   grid-template-columns: 20% 80%;
-}
-
-.assigned-to {
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 22px;
-  line-height: 33px;
-  display: flex;
 }
 
 .card-title {

@@ -37,48 +37,47 @@ const Login = (props) => {
 
   return (
     <div className="login">
-      <Card style={{ width: "50%", margin: "auto" }}>
-        <CardContent style={{ width: "50%", margin: "auto" }}>
-          <img src={logo} width="300px" style={{ paddingBottom: "20px" }} />
-          <form lines="full">
-            <TextField
-              name="email"
-              value={values.email}
-              type="text"
-              required
-              onChange={handleChange}
-              label="Email"
-              variant="outlined"
-            />
-          </form>
-          <form lines="full" style={{ paddingTop: "10px" }}>
-            <TextField
-              name="password"
-              type="password"
-              required
-              value={values.password}
-              onChange={handleChange}
-              label="Password"
-              variant="outlined"
-            />
-          </form>
-          <div style={{ paddingTop: "10px" }}></div>
-          <Button
-            type="submit"
-            color="primary"
-            expand="block"
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-            variant="contained"
-          >
-            Log In
-          </Button>
-          <br />
-          <Link to={"/forgot"}>
-            <p style={{ paddingTop: "10px" }}>Forgot Password?</p>
-          </Link>
-        </CardContent>
-      </Card>
+      <div className="logo">
+        <img src={logo} width="300px" style={{ paddingBottom: "20px" }} />
+      </div>
+      <form lines="full">
+        <TextField
+          name="email"
+          value={values.email}
+          type="text"
+          required
+          onChange={handleChange}
+          label="Email"
+          variant="outlined"
+        />
+        <br />
+        <br />
+        <TextField
+          name="password"
+          type="password"
+          required
+          value={values.password}
+          onChange={handleChange}
+          label="Password"
+          variant="outlined"
+        />
+        <br />
+        <br />
+        <Button
+          type="submit"
+          color="primary"
+          expand="block"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          variant="contained"
+        >
+          Log In
+        </Button>
+        <br />
+        <Link to={"/forgot"}>
+          <p style={{ paddingTop: "10px" }}>Forgot Password?</p>
+        </Link>
+      </form>
     </div>
   );
 };
