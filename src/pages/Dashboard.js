@@ -8,15 +8,28 @@ import "../css/Dashboard.css";
 import { GetUserDataFromFirebase } from "../components/utils/GetUserDetails";
 import UserContext from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
+import MockupCreationDialog from "../components/Dashboard/dialogs/MockupCreationDialog";
+import { Button } from "@material-ui/core";
+import ContentUploadDialog from "../components/Dashboard/dialogs/ContentUploadDialog";
 
 function Dashboard() {
   const { user } = useContext(UserContext);
   const [userInfo, setUserInfo] = useState(null);
+  const [openMockup, setOpenMockup] = useState(false);
+  const [openContent, setOpenContent] = useState(false);
   let history = useHistory();
   useEffect(() => {
     if (!user) return;
     handleGetUserDataFromFirebase();
   }, [user]);
+
+  const handleOpenMockup = () => {
+    setOpenMockup(true);
+  };
+
+  const handleOpenContent = () => {
+    setOpenContent(true);
+  };
 
   const handleGetUserDataFromFirebase = async () => {
     const data = await GetUserDataFromFirebase(user.uid);
@@ -29,7 +42,6 @@ function Dashboard() {
     assignedTo: "SEW",
     picture: Mockupimg,
     progress: 50,
-    url: "/questionnaire",
   };
   const card2Info = {
     title: "Content Upload",
@@ -68,10 +80,16 @@ function Dashboard() {
               Next Steps
             </h3>
             <div className="cards">
-              <DashboardCard cardInfo={card1Info} />
-              <DashboardCard cardInfo={card2Info} />
+              <Button onClick={handleOpenMockup}>
+                <DashboardCard cardInfo={card1Info} />
+              </Button>
+              <Button onClick={handleOpenContent}>
+                <DashboardCard cardInfo={card2Info} />
+              </Button>
               <DashboardCard cardInfo={card3Info} />
             </div>
+            <MockupCreationDialog open={openMockup} setOpen={setOpenMockup} />
+            <ContentUploadDialog open={openContent} setOpen={setOpenContent} />
           </div>
         </div>
       )}

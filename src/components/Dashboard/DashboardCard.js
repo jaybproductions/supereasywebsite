@@ -23,41 +23,39 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 function DashboardCard({ cardInfo }) {
   return (
-    <Link to={cardInfo.url}>
-      <div className="dashboard-card">
-        <Card style={{ borderRadius: "30px" }}>
-          <CardContent>
-            <div className="cardinfo-container">
-              <div className="card-photo">
-                <img src={cardInfo.picture} width="100%" height="100%" />
-              </div>
-              <div className="content-container">
-                <div className="card-title">{cardInfo.title}</div>
+    <div className="dashboard-card">
+      <Card style={{ borderRadius: "30px" }}>
+        <CardContent>
+          <div className="cardinfo-container">
+            <div className="card-photo">
+              <img src={cardInfo.picture} width="100%" height="100%" />
+            </div>
+            <div className="content-container">
+              <div className="card-title">{cardInfo.title}</div>
 
-                <p
-                  style={{
-                    display: "flex",
-                    color: "#10F2AC",
-                    fontFamily: "Poppins",
-                    fontStyle: "Bold",
-                    fontSize: "28px",
-                  }}
-                >
-                  {cardInfo.progress}%
-                </p>
+              <p
+                style={{
+                  display: "flex",
+                  color: "#10F2AC",
+                  fontFamily: "Poppins",
+                  fontStyle: "Bold",
+                  fontSize: "28px",
+                }}
+              >
+                {cardInfo.progress}%
+              </p>
 
-                <div className="progress-bar">
-                  <BorderLinearProgress
-                    variant="determinate"
-                    value={cardInfo.progress}
-                  />
-                </div>
+              <div className="progress-bar">
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={cardInfo.progress}
+                />
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-    </Link>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 

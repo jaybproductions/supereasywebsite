@@ -53,11 +53,6 @@ function App() {
           <Route path="/login" component={Login} />
 
           <Route path="/forgot" component={Forgot} />
-
-          <Route path="/dashboard" component={Dashboard} />
-          <CheckoutContext.Provider value={{ checkoutInfo, setCheckoutInfo }}>
-            <Route exact path="/checkout" component={Checkout} />
-          </CheckoutContext.Provider>
           <Route path="/websites/design">
             <Header component={<Design />} />
           </Route>
@@ -70,6 +65,10 @@ function App() {
           <Route path="/admin" component={AdminContainer} />
           <Route path="/questionnaire" component={Questionnaire} />
           <Route path="/hosting" component={Hosting} />
+          <Route path="/dashboard" component={Dashboard} />
+          <CheckoutContext.Provider value={{ checkoutInfo, setCheckoutInfo }}>
+            <Route exact path="/checkout" component={Checkout} />
+          </CheckoutContext.Provider>
         </Switch>
       </UserContext.Provider>
     </div>

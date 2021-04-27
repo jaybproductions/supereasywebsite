@@ -33,12 +33,7 @@ function SidebarLinks() {
           Request Additional
         </IconButton>
       </div>
-      <div className="sidebar-link">
-        <IconButton to="/pages" component={Link}>
-          <PostAddIcon style={{ fontSize: "50px" }} />
-          Page Content
-        </IconButton>
-      </div>
+
       <div className="sidebar-link">
         <IconButton to="/contact" component={Link}>
           <PermContactCalendarIcon style={{ fontSize: "50px" }} />
