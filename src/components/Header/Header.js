@@ -109,6 +109,10 @@ const Header = (props) => {
     }
   };
 
+  const handleLogout = () => {
+    firebase.logout();
+  };
+
   return (
     <>
       <div className="header">
@@ -189,7 +193,13 @@ const Header = (props) => {
                       component={Link}
                     >
                       Go To Dashboard
-                    </Button>{" "}
+                    </Button>
+                    <a
+                      style={{ color: "black", cursor: "pointer" }}
+                      onClick={handleLogout}
+                    >
+                      Logout{" "}
+                    </a>{" "}
                   </>
                 ) : (
                   <>
@@ -197,7 +207,12 @@ const Header = (props) => {
                     <Button to="/login" component={Link}>
                       Sign In
                     </Button>
-                    <Button variant="outlined" color="secondary">
+                    <Button
+                      variant="outlined"
+                      to="/checkout"
+                      component={Link}
+                      color="secondary"
+                    >
                       Buy Now
                     </Button>
                   </>

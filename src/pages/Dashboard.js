@@ -45,6 +45,7 @@ function Dashboard() {
     progress: 30,
     url: "/questionnaire",
   };
+
   return (
     <div className="dashboard">
       <h2 style={{ color: "white" }}>

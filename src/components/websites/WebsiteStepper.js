@@ -11,6 +11,8 @@ import HostingOptions from "./HostingOptions";
 import MockupLink from "./MockupLink";
 import FinalDesign from "./FinalDesign";
 import { GetUserDataFromFirebase } from "../utils/GetUserDetails";
+import BasicInfo from "./BasicInfo";
+import BusinessInfo from "./BusinessInfo";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,26 +29,24 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return [
-    "Fill Out Website Questionarre",
-    "Choose Hosting Option",
-    "Mockup Approval",
-    "Final Design and Testing",
-    "Launch and Live!",
+    "Basic Information",
+    "Business Information",
+    "Design Questions",
+    "Checkout / Account Creation",
   ];
 }
 
-function getStepContent(stepIndex, user) {
+function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return <DesignQuestions userData={user} />;
+      return <BasicInfo />;
     case 1:
-      return <HostingOptions userData={user} />;
+      return <BusinessInfo />;
     case 2:
-      return <MockupLink userData={user} />;
+      return <DesignQuestions />;
     case 3:
-      return <FinalDesign userData={user} />;
-    case 4:
-      return "This is where Launch and live will go";
+      return <FinalDesign />;
+
     default:
       return "Unknown stepIndex";
   }
@@ -74,6 +74,14 @@ export default function WebsiteStepper({ type }) {
     setActiveStep(0);
   };
 
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep} alternativeLabel>
@@ -94,8 +102,20 @@ export default function WebsiteStepper({ type }) {
         ) : (
           <div>
             <Typography className={classes.instructions}>
-              {userData && getStepContent(activeStep, userData)}
+              {getStepContent(activeStep, userData)}
             </Typography>
+            <div>
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+              >
+                Back
+              </Button>
+              <Button variant="contained" color="primary" onClick={handleNext}>
+                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              </Button>
+            </div>
           </div>
         )}
       </div>

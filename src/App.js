@@ -35,9 +35,7 @@ function App() {
           <Route path="/home">
             <Header component={<Home />} />
           </Route>
-          <Route path="/login">
-            <Header component={<Login />} />
-          </Route>
+          <Route path="/login" component={Login} />
           <Route path="/signup">
             <Header component={<Signup />} />
           </Route>
@@ -45,9 +43,7 @@ function App() {
             <Header component={<Forgot />} />
           </Route>
           <Route path="/dashboard" component={Dashboard} />
-          <Route exact path="/websites">
-            <Header component={<Websites />} />
-          </Route>
+          <Route exact path="/checkout" component={Websites} />
           <Route path="/websites/design">
             <Header component={<Design />} />
           </Route>

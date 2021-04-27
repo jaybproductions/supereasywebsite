@@ -88,7 +88,7 @@ const DesignQuestions = ({ userData }) => {
     const fileToUpload = event.target.files[0];
     const storage = firebase.app.storage();
     const ref = storage.ref();
-    const imagesRef = ref.child(`logos/${user.uid}/${fileName}`);
+    const imagesRef = ref.child(`logos/${values.businessName}}/${fileName}`);
 
     await imagesRef.put(fileToUpload).then((snapshot) => {
       //get download url
@@ -116,96 +116,85 @@ const DesignQuestions = ({ userData }) => {
 
   return (
     <div className="design-questions">
-      {userData && (
-        <>
-          {userData.stepStatus === "started" && submitted === false ? (
-            <>
-              {" "}
-              <Card>
-                <CardContent>
-                  <form
-                    style={{ padding: "10px", width: "50%", margin: "auto" }}
-                    id="design"
-                  >
-                    <TextField
-                      name="businessName"
-                      variant="outlined"
-                      label="Business Name"
-                      onChange={handleChange}
-                      fullWidth
-                    />
-                    <br /> <div style={{ paddingTop: "15px" }} />
-                    <TextField
-                      name="currentWebsite"
-                      variant="outlined"
-                      label="Current Website Address"
-                      onChange={handleChange}
-                      fullWidth
-                    />
-                    <br /> <br />
-                    <p style={{ textAlign: "left" }}>Upload a Logo</p>
-                    <TextField
-                      name="logo"
-                      variant="outlined"
-                      type="file"
-                      onChange={uploadLogo}
-                      fullWidth
-                    />
-                    <br /> <br />
-                    <TextField
-                      name="references"
-                      variant="outlined"
-                      label="References"
-                      onChange={handleChange}
-                      fullWidth
-                    />
-                    <br /> <br />
-                    <TextField
-                      name="fonts"
-                      variant="outlined"
-                      label="Fonts"
-                      onChange={handleChange}
-                      fullWidth
-                    />
-                    <br />
-                    <br />
-                    <div style={{ display: "inline", paddingTop: "15px" }} />
-                    <TextField
-                      name="colors"
-                      variant="outlined"
-                      label="Colors"
-                      onChange={handleChange}
-                      fullWidth
-                    />
-                    <br /> <br />
-                    <TextField
-                      variant="outlined"
-                      name="comments"
-                      label="Comments"
-                      onChange={handleChange}
-                      multiline
-                      rows={4}
-                      maxRows={8}
-                      fullWidth
-                    />
-                    <br /> <br />
-                    <Button
-                      onClick={handleSubmit}
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                    >
-                      Submit
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>{" "}
-            </>
-          ) : (
-            <>Thank you for submitting, please wait for approval. </>
-          )}
-        </>
-      )}
+      <Card>
+        <CardContent>
+          <form
+            style={{ padding: "10px", width: "50%", margin: "auto" }}
+            id="design"
+          >
+            <TextField
+              name="businessName"
+              variant="outlined"
+              label="Business Name"
+              onChange={handleChange}
+              fullWidth
+            />
+            <br /> <div style={{ paddingTop: "15px" }} />
+            <TextField
+              name="currentWebsite"
+              variant="outlined"
+              label="Current Website Address"
+              onChange={handleChange}
+              fullWidth
+            />
+            <br /> <br />
+            <p style={{ textAlign: "left" }}>Upload a Logo</p>
+            <TextField
+              name="logo"
+              variant="outlined"
+              type="file"
+              onChange={uploadLogo}
+              fullWidth
+            />
+            <br /> <br />
+            <TextField
+              name="references"
+              variant="outlined"
+              label="References"
+              onChange={handleChange}
+              fullWidth
+            />
+            <br /> <br />
+            <TextField
+              name="fonts"
+              variant="outlined"
+              label="Fonts"
+              onChange={handleChange}
+              fullWidth
+            />
+            <br />
+            <br />
+            <div style={{ display: "inline", paddingTop: "15px" }} />
+            <TextField
+              name="colors"
+              variant="outlined"
+              label="Colors"
+              onChange={handleChange}
+              fullWidth
+            />
+            <br /> <br />
+            <TextField
+              variant="outlined"
+              name="comments"
+              label="Comments"
+              onChange={handleChange}
+              multiline
+              rows={4}
+              maxRows={8}
+              fullWidth
+            />
+            <br /> <br />
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
+              Submit
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
       <ToastContainer />
     </div>
   );
