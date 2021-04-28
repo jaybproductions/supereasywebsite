@@ -12,6 +12,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
+import { SendEmail } from "../../../utils/SendEmail";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -25,13 +26,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RequestAdditional({ open, setOpen }) {
   const classes = useStyles();
-  const [age, setAge] = useState("");
+  const [type, setType] = useState("");
+  const [text, setText] = useState("");
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setType(event.target.value);
+  };
+
+  const handleSubmit = async () => {
+    const content = `A User has requested an Additional Service. 
+      The Details are as follows: user: "userid here" Type: ${type} Details: ${text}`;
+    const emailResponse = await SendEmail(content);
+    console.log(emailResponse);
+    setOpen(false);
   };
 
   return (
@@ -52,13 +62,13 @@ export default function RequestAdditional({ open, setOpen }) {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={age}
+              value={type}
               onChange={handleChange}
             >
-              <MenuItem value={10}>Page</MenuItem>
-              <MenuItem value={20}>Feature</MenuItem>
-              <MenuItem value={30}>Content</MenuItem>
-              <MenuItem value={40}>Other</MenuItem>
+              <MenuItem value={"Page"}>Page</MenuItem>
+              <MenuItem value={"Feature"}>Feature</MenuItem>
+              <MenuItem value={"Content"}>Content</MenuItem>
+              <MenuItem value={"Other"}>Other</MenuItem>
             </Select>
           </FormControl>
           <TextField
@@ -66,7 +76,9 @@ export default function RequestAdditional({ open, setOpen }) {
             margin="dense"
             id="details"
             label="Details"
-            type="email"
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             fullWidth
             multiline
             rows={4}
@@ -76,7 +88,7 @@ export default function RequestAdditional({ open, setOpen }) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleSubmit} color="primary">
             Submit
           </Button>
         </DialogActions>

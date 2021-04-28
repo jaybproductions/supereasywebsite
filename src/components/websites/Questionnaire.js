@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import firebase from "../../firebase";
-import { Button, TextField, Card, CardContent } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { GetUserWebsiteDataFromFirebase } from "../../utils/GetUserDetails";
 
 const Questionnaire = () => {

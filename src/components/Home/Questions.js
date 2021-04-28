@@ -1,29 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { init } from "emailjs-com";
 import { TextField, Button, CardContent, Card } from "@material-ui/core";
-import emailjs from "emailjs-com";
-init("user_0HgOZL0g5w9HF8Uc69yMW");
+import { SendEmail } from "../../utils/SendEmail";
 
 const Questions = () => {
   const [comments, setComments] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("submitting");
-    const templateParams = {
-      content: `Name: ${name}, Email: ${email}, Comments: ${comments}`,
-      to: "chris@btwebgroup.com",
-    };
-    emailjs.send("service_9dpngmi", "template_izthnsq", templateParams).then(
-      function (response) {
-        console.log("SUCCESS!", response.status, response.text);
-      },
-      function (error) {
-        console.log("FAILED...", error);
-      }
-    );
+    const content = `Name: ${name}, Email: ${email}, Comments: ${comments}`;
+    const emailResponse = await SendEmail(content);
+    console.log(emailResponse);
   };
+
   return (
     <div
       className="questions"
