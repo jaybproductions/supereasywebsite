@@ -23,7 +23,6 @@ function useForm(initialState, validate, action) {
       ...previousValues,
       [event.target.name]: event.target.value,
     }));
-    console.log(event.target.value);
   }
 
   function handleSubmit() {

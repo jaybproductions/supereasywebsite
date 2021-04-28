@@ -19,6 +19,12 @@ const Login = (props) => {
     authenticateUser
   );
 
+  document.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  });
+
   const [busy, setBusy] = useState(false);
 
   async function authenticateUser() {

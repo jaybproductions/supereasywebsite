@@ -1,5 +1,47 @@
 import firebase from "../../firebase";
 
+//! Adding new user to firebase db
+export async function AddNewUser(newUserData) {
+  //register new user with auth
+  const newUser = await firebase.register(
+    newUserData.firstName,
+    newUserData.email,
+    newUserData.password
+  );
+
+  //add to users collection
+  firebase.db.collection("users").doc(newUser).set({
+    id: newUser,
+    isAdmin: false,
+    firstName: newUserData.firstName,
+    lastName: newUserData.lastName,
+    businessName: newUserData.businessName,
+    phone: newUserData.phone,
+    username: newUserData.email,
+    email: newUserData.email,
+    currentStep: 0,
+    stepStatus: "started",
+    projectStatus: "started",
+  });
+
+  //add to websites collection
+  firebase.db
+    .collection("websites")
+    .doc(newUser)
+    .set({
+      pages: newUserData.pageArr,
+      id: newUser,
+      client: newUserData.email,
+      designQuestions: {
+        logo_url: "",
+        references: newUserData.references,
+        fonts: newUserData.fonts,
+        colors: newUserData.colors,
+        comments: newUserData.comments,
+      },
+    });
+}
+
 //TODO function for updating design questions
 export async function UpdateDesignQuestionsInDB(userId, updatedDoc) {
   const updateRef = firebase.db.collection("websites").doc(userId);

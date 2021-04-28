@@ -5,7 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Questionnaire from "../../websites/Questionnaire";
 
-export default function DesignQuestionDialog({ open, setOpen }) {
+export default function FaqDialog({ open, setOpen }) {
   const handleClose = () => {
     setOpen(false);
   };
@@ -18,10 +18,10 @@ export default function DesignQuestionDialog({ open, setOpen }) {
         aria-labelledby="form-dialog-title"
         fullWidth={true}
       >
-        <DialogTitle id="form-dialog-title">Design Questions</DialogTitle>
-        <DialogContent>
-          <Questionnaire />
-        </DialogContent>
+        <DialogTitle id="form-dialog-title">
+          Frequently Asked Questions
+        </DialogTitle>
+        <DialogContent>"This is where FAQ will go"</DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel

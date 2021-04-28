@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
-import { Card, CardContent, TextField } from "@material-ui/core";
 import PageList from "../components/./websites/Pages/PageList";
+import { GetUserWebsiteDataFromFirebase } from "../components/utils/GetUserDetails";
+import "../css/Pages.css";
 
 const Content = () => {
   const { user } = useContext(UserContext);
@@ -10,13 +10,12 @@ const Content = () => {
 
   useEffect(() => {
     if (!user) return;
-    getData();
+    handleGetWebsiteDataFromApi();
   }, [user]);
 
-  const getData = async () => {
-    const docRef = await firebase.db.collection("websites").doc(user.uid).get();
-    console.log(docRef.data());
-    setPages(docRef.data().pages);
+  const handleGetWebsiteDataFromApi = async () => {
+    const websiteData = await GetUserWebsiteDataFromFirebase(user.uid);
+    setPages(websiteData.pages);
   };
   return <div className="design">{pages && <PageList pages={pages} />}</div>;
 };

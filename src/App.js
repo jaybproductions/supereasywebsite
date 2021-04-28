@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 
 //header import
 import Header from "./components/Header/Header";
-import Design from "./pages/Design";
 import Content from "./pages/Content";
 import Marketing from "./pages/Marketing";
 import Login from "./pages/Auth/Login";
@@ -53,9 +52,7 @@ function App() {
           <Route path="/login" component={Login} />
 
           <Route path="/forgot" component={Forgot} />
-          <Route path="/websites/design">
-            <Header component={<Design />} />
-          </Route>
+
           <Route exact path="/pages" component={Content} />
           <Route path="/websites/content/:page" component={PageSingle} />
           <Route path="/requests" component={Requests} />

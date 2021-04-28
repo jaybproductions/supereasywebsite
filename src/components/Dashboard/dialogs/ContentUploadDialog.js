@@ -31,9 +31,6 @@ export default function ContentUploadDialog({ open, setOpen }) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
-            Update
-          </Button>
         </DialogActions>
       </Dialog>
     </div>

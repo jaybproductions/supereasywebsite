@@ -7,10 +7,15 @@ import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import { Link } from "react-router-dom";
 import DesignQuestionDialog from "./dialogs/DesignQuestionDialog";
 import RequestAdditional from "./dialogs/RequestAdditional";
+import ContactDialog from "./dialogs/ContactDialog";
+import LiveHelpIcon from "@material-ui/icons/LiveHelp";
+import FaqDialog from "./dialogs/FaqDialog";
 
 function SidebarLinks() {
   const [openDesign, setOpenDesign] = useState(false);
   const [openRequests, setOpenRequests] = useState(false);
+  const [openContact, setOpenContact] = useState(false);
+  const [openFaq, setOpenFaq] = useState(false);
 
   const handleClickOpenDesign = () => {
     setOpenDesign(true);
@@ -18,6 +23,14 @@ function SidebarLinks() {
 
   const handleClickOpenRequest = () => {
     setOpenRequests(true);
+  };
+
+  const handleClickOpenContact = () => {
+    setOpenContact(true);
+  };
+
+  const handleClickOpenFaq = () => {
+    setOpenFaq(true);
   };
   return (
     <div className="sidebar-links">
@@ -33,9 +46,15 @@ function SidebarLinks() {
           Request Additional
         </IconButton>
       </div>
+      <div className="sidebar-link">
+        <IconButton onClick={handleClickOpenFaq}>
+          <LiveHelpIcon style={{ fontSize: "50px" }} />
+          FAQ
+        </IconButton>
+      </div>
 
       <div className="sidebar-link">
-        <IconButton to="/contact" component={Link}>
+        <IconButton onClick={handleClickOpenContact}>
           <PermContactCalendarIcon style={{ fontSize: "50px" }} />
           Contact
         </IconButton>
@@ -43,6 +62,8 @@ function SidebarLinks() {
 
       <DesignQuestionDialog open={openDesign} setOpen={setOpenDesign} />
       <RequestAdditional open={openRequests} setOpen={setOpenRequests} />
+      <ContactDialog open={openContact} setOpen={setOpenContact} />
+      <FaqDialog open={openFaq} setOpen={setOpenFaq} />
     </div>
   );
 }

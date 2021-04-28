@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -7,14 +7,13 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import DesignQuestions from "./DesignQuestions";
 import UserContext from "../../contexts/UserContext";
-import { GetUserDataFromFirebase } from "../utils/GetUserDetails";
 import BasicInfo from "./BasicInfo";
 import BusinessInfo from "./BusinessInfo";
 import CheckoutContext from "../../contexts/CheckoutContext";
 import { toast, ToastContainer } from "react-toastify";
 import FinalCheckout from "./FinalCheckout";
-import firebase from "../../firebase";
 import { Link } from "react-router-dom";
+import { AddNewUser } from "../utils/UpdateUserDetails";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +65,7 @@ export default function CheckoutStepper({ type }) {
     setActiveStep(0);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     /*if (!checkoutInfo.email) {
       toast.error("Email is required");
       return;
@@ -79,47 +78,11 @@ export default function CheckoutStepper({ type }) {
     }
     console.log(checkoutInfo); */
     if (activeStep === steps.length - 1) {
-      handleAddUser();
+      await AddNewUser(checkoutInfo);
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
     console.log(checkoutInfo);
-  };
-
-  const handleAddUser = async () => {
-    const newUser = await firebase.register(
-      checkoutInfo.firstName,
-      checkoutInfo.email,
-      checkoutInfo.password
-    );
-    firebase.db.collection("users").doc(newUser).set({
-      id: newUser,
-      isAdmin: false,
-      firstName: checkoutInfo.firstName,
-      lastName: checkoutInfo.lastName,
-      businessName: checkoutInfo.businessName,
-      phone: checkoutInfo.phone,
-      username: checkoutInfo.email,
-      email: checkoutInfo.email,
-      currentStep: 0,
-      stepStatus: "started",
-      projectStatus: "started",
-    });
-    firebase.db
-      .collection("websites")
-      .doc(newUser)
-      .set({
-        pages: checkoutInfo.pageArr,
-        id: newUser,
-        client: checkoutInfo.email,
-        designQuestions: {
-          logo_url: "",
-          references: checkoutInfo.references,
-          fonts: checkoutInfo.fonts,
-          colors: checkoutInfo.colors,
-          comments: checkoutInfo.comments,
-        },
-      });
   };
 
   const handleBack = () => {

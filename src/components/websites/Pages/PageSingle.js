@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import firebase from "../../../firebase";
 import { useParams } from "react-router-dom";
-import { TextField, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import UserContext from "../../../contexts/UserContext";
 import {
   EditorState,
@@ -14,9 +14,29 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 import ReactHtmlParser from "react-html-parser";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import { Link } from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 const PageSingle = () => {
   const { page } = useParams();
+  const classes = useStyles();
 
   const { user } = useContext(UserContext);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -33,7 +53,7 @@ const PageSingle = () => {
   }, [user]);
   const getData = async () => {
     const docRef = await firebase.db.collection("websites").doc(user.uid).get();
-    console.log(docRef.data());
+
     setUserData(docRef.data());
     const titleString = page + "Info";
     if (docRef.data()[titleString]) {
@@ -53,7 +73,6 @@ const PageSingle = () => {
     setEditorState(e);
     const editorJSON = convertToRaw(e.getCurrentContent());
     setPageInfo(draftToHtml(editorJSON));
-    console.log(editorJSON);
   };
 
   const updateInfo = async (e) => {
@@ -93,22 +112,31 @@ const PageSingle = () => {
     }
   };
   return (
-    <div>
+    <div className="page-single">
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            component={Link}
+            to="/dashboard"
+          >
+            <KeyboardBackspaceIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Back to Dasboard
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <h3>Currently Updating the {page} page.</h3>
       <br />
 
-      <div
-        style={{
-          margin: "auto",
-          width: "50%",
-          height: "100%",
-          borderWidth: "2px",
-          borderStyle: "solid",
-          borderColor: "lightgray",
-        }}
-      >
+      <div>
         <Editor
           editorState={editorState}
+          editorStyle={{ minHeight: "300px", border: "1px solid black" }}
           toolbarClassName="toolbarClassName"
           wrapperClassName="wrapperClassName"
           editorClassName="editorClassName"
@@ -116,23 +144,26 @@ const PageSingle = () => {
         />
       </div>
       <br />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={updateInfo}
-        name="update"
-      >
-        Update
-      </Button>
-      <div style={{ display: "inline", paddingLeft: "10px" }} />
-      <Button
-        variant="contained"
-        color="primary"
-        name="submit"
-        onClick={handleSubmit}
-      >
-        Submit
-      </Button>
+      <div className="buttons">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={updateInfo}
+          name="update"
+        >
+          Update
+        </Button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          name="submit"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </div>
+
       <div style={{ paddingTop: "50px" }}>
         <h4>Your Current Page Content</h4>
       </div>

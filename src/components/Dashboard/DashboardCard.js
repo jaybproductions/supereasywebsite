@@ -1,10 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "@material-ui/core";
-import PropTypes from "prop-types";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -28,7 +25,12 @@ function DashboardCard({ cardInfo }) {
         <CardContent>
           <div className="cardinfo-container">
             <div className="card-photo">
-              <img src={cardInfo.picture} width="100%" height="100%" />
+              <img
+                src={cardInfo.picture}
+                width="80%"
+                height="80%"
+                alt="dashboard-card"
+              />
             </div>
             <div className="content-container">
               <div className="card-title">{cardInfo.title}</div>

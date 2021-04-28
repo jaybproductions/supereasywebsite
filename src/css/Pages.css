@@ -1,0 +1,4 @@
+.page-single {
+  display: grid;
+  place-items: center;
+}

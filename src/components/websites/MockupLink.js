@@ -90,7 +90,17 @@ const MockupLink = () => {
           </Button>
         </>
       ) : (
-        <>Please wait for mockup to be created... </>
+        <>
+          Mockup is Currently Being Created Based on Your Design Selections. We
+          will reach out if we have any questions. <br />
+          <br />
+          You will recieve an email when your mockup link is available to
+          review. It will also show here.
+          <br />
+          <br />
+          In the meantime, please click on the "Content Upload" card to upload
+          text/photo content for each of your pages.
+        </>
       )}
       <ToastContainer />
     </div>

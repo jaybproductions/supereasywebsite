@@ -3,22 +3,18 @@ import firebase from "../../firebase";
 import { withRouter, Link } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
+import { GetUserDataFromFirebase } from "../utils/GetUserDetails";
 import "../../App.css";
 import "../../css/Header.css";
 import logo from "../../images/logo.png";
 
 const drawerWidth = 240;
-
-const linkStyle = {
-  textDecoration: "none",
-  color: "white",
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,12 +75,11 @@ const Header = (props) => {
   const { user } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(0);
 
   useEffect(() => {
-    getUser();
+    if (!user) return;
+    handleGetUserDataFromApi();
   }, [user]);
 
   async function LogoutUser() {
@@ -98,19 +93,9 @@ const Header = (props) => {
     }
   }
 
-  const getUser = async () => {
-    if (!user) {
-      console.log("waiting to connect");
-    } else {
-      const docRef = await firebase.db.collection("users").doc(user.uid).get();
-      const userData = docRef.data();
-      setUserData(userData);
-      console.log(userData);
-    }
-  };
-
-  const handleLogout = () => {
-    firebase.logout();
+  const handleGetUserDataFromApi = async () => {
+    const userInfo = await GetUserDataFromFirebase(user.uid);
+    setUserData(userInfo);
   };
 
   return (
@@ -129,7 +114,12 @@ const Header = (props) => {
               <div className="title">
                 <h3>{props.title}</h3>
                 <Link to="/">
-                  <img src={logo} width="100px" style={{ padding: "10px" }} />
+                  <img
+                    src={logo}
+                    width="100px"
+                    style={{ padding: "10px" }}
+                    alt="logo"
+                  />
                 </Link>
               </div>
             </Typography>
@@ -194,12 +184,12 @@ const Header = (props) => {
                     >
                       Go To Dashboard
                     </Button>
-                    <a
+                    <Button
                       style={{ color: "black", cursor: "pointer" }}
-                      onClick={handleLogout}
+                      onClick={LogoutUser}
                     >
-                      Logout{" "}
-                    </a>{" "}
+                      Logout
+                    </Button>
                   </>
                 ) : (
                   <>
