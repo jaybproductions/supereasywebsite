@@ -66,7 +66,7 @@ export default function CheckoutStepper({ type }) {
   };
 
   const handleNext = async () => {
-    /*if (!checkoutInfo.email) {
+    if (!checkoutInfo.email) {
       toast.error("Email is required");
       return;
     }
@@ -76,7 +76,7 @@ export default function CheckoutStepper({ type }) {
         return;
       }
     }
-    console.log(checkoutInfo); */
+    console.log(checkoutInfo);
     if (activeStep === steps.length - 1) {
       await AddNewUser(checkoutInfo);
     }
