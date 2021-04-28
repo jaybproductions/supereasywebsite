@@ -57,6 +57,7 @@ function BasicInfo() {
             <TextField
               name="password"
               variant="outlined"
+              type="password"
               label="Password"
               onChange={handleChange}
               fullWidth

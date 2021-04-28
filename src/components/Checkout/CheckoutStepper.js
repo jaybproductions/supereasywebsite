@@ -69,6 +69,11 @@ export default function CheckoutStepper({ type }) {
     if (!checkoutInfo.email) {
       toast.error("Email is required");
       return;
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(checkoutInfo.email)
+    ) {
+      toast.error("Your email is invalid.");
+      return;
     }
     if (activeStep === 1) {
       if (!checkoutInfo.businessName) {
