@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ReactComponent as Basic } from "../../images/Basic.svg";
-
-import firebase from "../../firebase";
-
 import { Button, CardContent, Grid, Card } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
 import { init } from "emailjs-com";

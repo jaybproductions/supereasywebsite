@@ -9,7 +9,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
-import { GetUserDataFromFirebase } from "../utils/GetUserDetails";
+import { GetUserDataFromFirebase } from "../../utils/GetUserDetails";
 import "../../App.css";
 import "../../css/Header.css";
 import logo from "../../images/logo.png";
@@ -75,7 +75,7 @@ const Header = (props) => {
   const { user } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (!user) return;

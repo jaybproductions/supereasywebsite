@@ -10,7 +10,7 @@ import emailjs from "emailjs-com";
 import {
   UpdateDesignQuestionsInDB,
   UpdateStepStatusInDB,
-} from "../utils/UpdateUserDetails";
+} from "../../utils/UpdateUserDetails";
 import CheckoutContext from "../../contexts/CheckoutContext";
 init("user_0HgOZL0g5w9HF8Uc69yMW");
 

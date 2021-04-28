@@ -1,5 +1,4 @@
 import React from "react";
-import UserItem from "./UserItem";
 import { DataGrid } from "@material-ui/data-grid";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";

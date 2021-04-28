@@ -13,7 +13,7 @@ import CheckoutContext from "../../contexts/CheckoutContext";
 import { toast, ToastContainer } from "react-toastify";
 import FinalCheckout from "./FinalCheckout";
 import { Link } from "react-router-dom";
-import { AddNewUser } from "../utils/UpdateUserDetails";
+import { AddNewUser } from "../../utils/UpdateUserDetails";
 
 const useStyles = makeStyles((theme) => ({
   root: {

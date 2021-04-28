@@ -1,4 +1,4 @@
-import firebase from "../../firebase";
+import firebase from "../firebase";
 
 export async function GetUserDataFromFirebase(userId) {
   const docRef = firebase.db.collection("users").doc(userId);

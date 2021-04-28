@@ -1,4 +1,4 @@
-import firebase from "../../firebase";
+import firebase from "../firebase";
 
 //! Adding new user to firebase db
 export async function AddNewUser(newUserData) {

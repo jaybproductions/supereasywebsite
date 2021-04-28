@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import firebase from "../../firebase";
 import { Button, TextField, Card, CardContent } from "@material-ui/core";
-import { GetUserWebsiteDataFromFirebase } from "../utils/GetUserDetails";
+import { GetUserWebsiteDataFromFirebase } from "../../utils/GetUserDetails";
 
 const Questionnaire = () => {
   const { user } = useContext(UserContext);
@@ -82,7 +82,7 @@ const Questionnaire = () => {
   return (
     <div className="questionnaire">
       {userData && (
-        <Card style={{ padding: "30px", width: "100%", margin: "auto" }}>
+        <>
           <TextField
             label="BusinessName"
             name="businessName"
@@ -169,9 +169,9 @@ const Questionnaire = () => {
             onClick={SubmitChanges}
             fullWidth
           >
-            Update
+            Save Changes
           </Button>
-        </Card>
+        </>
       )}
     </div>
   );

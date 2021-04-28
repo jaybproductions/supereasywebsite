@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
-import { GetUserDataFromFirebase } from "../utils/GetUserDetails";
+import { GetUserDataFromFirebase } from "../../utils/GetUserDetails";
 import { Switch, Route, Redirect } from "react-router-dom";
 import SideNav, {
   Toggle,

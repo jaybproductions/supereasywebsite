@@ -5,18 +5,20 @@ import Mockupimg from "../images/mockupimg.jfif";
 import Contentimg from "../images/contentupload.jfif";
 import Finalimg from "../images/finalapproval.jfif";
 import "../css/Dashboard.css";
-import { GetUserDataFromFirebase } from "../components/utils/GetUserDetails";
+import { GetUserDataFromFirebase } from "../utils/GetUserDetails";
 import UserContext from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import MockupCreationDialog from "../components/Dashboard/dialogs/MockupCreationDialog";
 import { Button } from "@material-ui/core";
 import ContentUploadDialog from "../components/Dashboard/dialogs/ContentUploadDialog";
+import FinalApprovalDialog from "../components/Dashboard/dialogs/FinalApprovalDialog";
 
 function Dashboard() {
   const { user } = useContext(UserContext);
   const [userInfo, setUserInfo] = useState(null);
   const [openMockup, setOpenMockup] = useState(false);
   const [openContent, setOpenContent] = useState(false);
+  const [openFinal, setOpenFinal] = useState(false);
   let history = useHistory();
   useEffect(() => {
     if (!user) return;
@@ -29,6 +31,10 @@ function Dashboard() {
 
   const handleOpenContent = () => {
     setOpenContent(true);
+  };
+
+  const handleOpenFinal = () => {
+    setOpenFinal(true);
   };
 
   const handleGetUserDataFromFirebase = async () => {
@@ -86,10 +92,13 @@ function Dashboard() {
               <Button onClick={handleOpenContent}>
                 <DashboardCard cardInfo={card2Info} />
               </Button>
-              <DashboardCard cardInfo={card3Info} />
+              <Button onClick={handleOpenFinal}>
+                <DashboardCard cardInfo={card3Info} />
+              </Button>
             </div>
             <MockupCreationDialog open={openMockup} setOpen={setOpenMockup} />
             <ContentUploadDialog open={openContent} setOpen={setOpenContent} />
+            <FinalApprovalDialog open={openFinal} setOpen={setOpenFinal} />
           </div>
         </div>
       )}

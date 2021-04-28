@@ -29,7 +29,7 @@
 .sidebar {
   position: relative;
 
-  width: 75%;
+  width: 100%;
   height: 100%;
 
   background: linear-gradient(
@@ -50,7 +50,7 @@
 }
 
 .default-user-pic {
-  width: 110%;
+  width: 120%;
   height: 154px;
 
   background: url(../images/defaultpic.png);
@@ -62,14 +62,8 @@
 }
 
 .sidebar-links {
-  padding-top: 20px;
+  padding: 20px;
   display: grid;
-}
-
-.sidebar-links > button {
-  width: 200px;
-  height: 40px;
-  margin: 10px;
 }
 
 .name {
@@ -79,15 +73,18 @@
 
 .main-content {
   display: grid;
+  width: 100%;
 }
 
 .cards {
   padding: 10px;
+  width: 100%;
 }
 
 .dashboard-card {
   padding: 10px;
-  height: 30%;
+  height: 25%;
+  width: 100%;
 }
 
 .cardinfo-container {
@@ -100,6 +97,6 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: 600;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 42px;
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import PageList from "../components/./websites/Pages/PageList";
-import { GetUserWebsiteDataFromFirebase } from "../components/utils/GetUserDetails";
+import { GetUserWebsiteDataFromFirebase } from "../utils/GetUserDetails";
 import "../css/Pages.css";
 
 const Content = () => {
