@@ -9,7 +9,6 @@ init("user_0HgOZL0g5w9HF8Uc69yMW");
 
 const FinalCheckout = () => {
   const { checkoutInfo } = useContext(CheckoutContext);
-  const handleSubmit = async (e) => {};
 
   return (
     <div className="final-checkout">
@@ -18,7 +17,7 @@ const FinalCheckout = () => {
           <Card>
             <CardContent>
               <h4>Basic Information</h4>
-              {checkoutInfo.firstName}
+              All of the clients basic information will go here
             </CardContent>
           </Card>
         </Grid>
@@ -26,6 +25,7 @@ const FinalCheckout = () => {
           <Card>
             <CardContent>
               <h4>Business Information</h4>
+              All of the clients business information will go here.
             </CardContent>
           </Card>
         </Grid>
@@ -33,6 +33,7 @@ const FinalCheckout = () => {
           <Card>
             <CardContent>
               <h4>Design Selections</h4>
+              All of the clients design selections will go here.
             </CardContent>
           </Card>
         </Grid>

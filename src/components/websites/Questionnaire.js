@@ -113,10 +113,10 @@ const Questionnaire = () => {
             fullWidth
           />
           <br />
-          {userData.logo ? (
+          {userData.logo_url ? (
             <>
               <p>Your Current Logo</p>
-              <img src={userData.logo} width="300" height="300" />
+              <img src={userData.logo_url} width="300" height="300" />
             </>
           ) : (
             <>No logo uploaded yet</>

@@ -32,14 +32,35 @@ export async function AddNewUser(newUserData) {
       pages: newUserData.pageArr,
       id: newUser,
       client: newUserData.email,
+      logo_url: "",
       designQuestions: {
-        logo_url: "",
+        businessName: newUserData.businessName,
         references: newUserData.references,
         fonts: newUserData.fonts,
         colors: newUserData.colors,
         comments: newUserData.comments,
       },
     });
+}
+
+//Add lead to db - if not checked out
+export async function AddNewLead(leadDoc) {
+  await firebase.db.collection("leads").doc(leadDoc.email).set({
+    leadDoc,
+  });
+}
+
+//update lead in db
+export async function UpdateLead(updatedLeadDoc) {
+  const docRef = firebase.db.collection("leads").doc(updatedLeadDoc.email);
+  const doc = await docRef.get();
+  if (!doc.exists) {
+    AddNewLead(updatedLeadDoc);
+  } else {
+    docRef.update({
+      updatedLeadDoc,
+    });
+  }
 }
 
 //TODO function for updating design questions
@@ -82,7 +103,7 @@ export async function UpdateLogoUrlInDB(userId, updatedDoc) {
   const updateRef = firebase.db.collection("websites").doc(userId);
   updateRef.update(
     {
-      logo: updatedDoc,
+      logo_url: updatedDoc,
     },
     { merge: true }
   );

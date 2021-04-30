@@ -5,9 +5,7 @@ import LinkIcon from "@material-ui/icons/Link";
 import Fab from "@material-ui/core/Fab";
 import { Button } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
-import { init } from "emailjs-com";
-import emailjs from "emailjs-com";
-init("user_0HgOZL0g5w9HF8Uc69yMW");
+import { SendEmail } from "../../utils/SendEmail";
 
 const MockupLink = () => {
   const { user } = useContext(UserContext);
@@ -51,19 +49,9 @@ const MockupLink = () => {
       { merge: true }
     );
     setApproved(true);
-    const templateParams = {
-      content: `Mockup has been approved by ${user.displayName}`,
-      to: "chris@btwebgroup.com",
-    };
-
-    emailjs.send("service_9dpngmi", "template_izthnsq", templateParams).then(
-      function (response) {
-        console.log("SUCCESS!", response.status, response.text);
-      },
-      function (error) {
-        console.log("FAILED...", error);
-      }
-    );
+    const content = `Mockup has been approved by ${user.displayName}`;
+    const emailResponse = await SendEmail(content);
+    console.log(emailResponse);
     toast.success("Thank you for approving the mockup.");
   };
 
@@ -73,7 +61,7 @@ const MockupLink = () => {
         <>
           Your Mockup Link <br />
           <div style={{ paddingBottom: "5px" }} />
-          <a href={mockupLink}>
+          <a href={mockupLink} target="_blank" rel="noreferrer">
             <Fab>
               <LinkIcon />
             </Fab>
@@ -88,6 +76,11 @@ const MockupLink = () => {
           >
             {approved ? "Approved" : "Approve"}
           </Button>
+          <br />
+          <br />
+          {approved
+            ? "You have approved your mockup. We will begin working on developing the website in a staging environment."
+            : "Please review the mockup and approvde it once you are satified."}
         </>
       ) : (
         <>

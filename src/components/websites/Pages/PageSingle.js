@@ -132,7 +132,10 @@ const PageSingle = () => {
       </AppBar>
       <h3>Currently Updating the {page} page.</h3>
       <br />
-
+      This is where you can add/edit your text content for each page on your
+      website. <br />
+      If you would prefer to use Google Docs/Drive for photo/video uploads
+      please provide the link
       <div>
         <Editor
           editorState={editorState}
@@ -163,7 +166,6 @@ const PageSingle = () => {
           Submit
         </Button>
       </div>
-
       <div style={{ paddingTop: "50px" }}>
         <h4>Your Current Page Content</h4>
       </div>

@@ -14,6 +14,7 @@ import { toast, ToastContainer } from "react-toastify";
 import FinalCheckout from "./FinalCheckout";
 import { Link } from "react-router-dom";
 import { AddNewUser } from "../../utils/UpdateUserDetails";
+import { AddNewLead, UpdateLead } from "../../utils/UpdateUserDetails";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,6 +76,26 @@ export default function CheckoutStepper({ type }) {
       toast.error("Your email is invalid.");
       return;
     }
+
+    if (!checkoutInfo.password) {
+      toast.error("Password is required");
+      return;
+    }
+    if (activeStep === 0) {
+      const leadDoc = {
+        email: checkoutInfo.email,
+        firstName: checkoutInfo.firstName,
+        lastName: checkoutInfo.lastName,
+        password: checkoutInfo.password,
+      };
+
+      await AddNewLead(leadDoc);
+    } else {
+      const updatedLeadDoc = {
+        ...checkoutInfo,
+      };
+      await UpdateLead(updatedLeadDoc);
+    }
     if (activeStep === 1) {
       if (!checkoutInfo.businessName) {
         toast.error("Business Name is Required");
@@ -86,7 +107,6 @@ export default function CheckoutStepper({ type }) {
       await AddNewUser(checkoutInfo);
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-
     console.log(checkoutInfo);
   };
 
