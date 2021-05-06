@@ -1,6 +1,7 @@
 import { Button } from "@material-ui/core";
 import React from "react";
 import { ReactComponent as Basic } from "../../images/Basic.svg";
+import { Link } from "react-router-dom";
 
 function PackageSelection() {
   return (
@@ -29,7 +30,12 @@ function PackageSelection() {
             </div>
             <div className="price">Pricing</div>
             <div className="select-button">
-              <Button variant="outlined" color="secondary">
+              <Button
+                variant="outlined"
+                color="secondary"
+                to="/checkout"
+                component={Link}
+              >
                 Select
               </Button>
             </div>
@@ -52,7 +58,12 @@ function PackageSelection() {
             </div>
             <div className="price">Pricing</div>
             <div className="select-button">
-              <Button variant="outlined" color="secondary">
+              <Button
+                variant="outlined"
+                color="secondary"
+                to="/checkout"
+                component={Link}
+              >
                 Select
               </Button>
             </div>
@@ -76,7 +87,12 @@ function PackageSelection() {
             </div>
             <div className="price">Pricing</div>
             <div className="select-button">
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                to="/checkout"
+                component={Link}
+              >
                 Select
               </Button>
             </div>

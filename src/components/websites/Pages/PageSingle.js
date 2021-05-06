@@ -135,7 +135,7 @@ const PageSingle = () => {
       This is where you can add/edit your text content for each page on your
       website. <br />
       If you would prefer to use Google Docs/Drive for photo/video uploads
-      please provide the link
+      please provide the link below.
       <div>
         <Editor
           editorState={editorState}
