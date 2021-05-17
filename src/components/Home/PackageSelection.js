@@ -23,28 +23,51 @@ function PackageSelection() {
         </p>
       </div>
       <div className="packages">
-        <Package title="DIY" features={diy.features} price={diy.price} />
+        <Package
+          title="DIY"
+          features={diy.features}
+          price={diy.price}
+          link="diy"
+        />
         <Package
           title="Starter"
           features={starter.features}
           price={starter.price}
+          link="starter"
         />
-        <Package title="Basic" features={basic.features} price={basic.price} />
+        <Package
+          title="Basic"
+          features={basic.features}
+          price={basic.price}
+          link="basic"
+        />
         <Package
           title="Intermediate"
           features={intermediate.features}
           price={intermediate.price}
+          link="intermediate"
         />
         <Package
           title="Advanced"
           features={advanced.features}
           price={advanced.price}
+          link="advanced"
         />
         <Package
           title="Enterprise"
           features={enterprise.features}
           price={enterprise.price}
+          link="enterprise"
         />
+      </div>
+      <div className="disclaimer">
+        *The price for each package may vary if additional features are
+        requested. *These prices do not include the cost for monthly hosting.
+        *The package you choose in the beginning doesn’t have to be the final
+        package that is built for you. If we need to modify your package after
+        learning more about your needs (before, during, or after the design
+        phase) we can modify your package accordingly based on the final version
+        of your website.
       </div>
     </div>
   );

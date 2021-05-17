@@ -37,5 +37,4 @@ export const enterprise = {
   features: [
     "We’ll build you a 15+ page website which can also include Ecommerce, Membership Access, and other advanced or custom functionality",
   ],
-  price: "Request Quote",
 };

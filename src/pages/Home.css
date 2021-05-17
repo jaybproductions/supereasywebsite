@@ -53,13 +53,13 @@
 }
 
 ul {
-  padding-left: 1em;
+  padding-top: 1em;
   text-align: left;
-  padding-left: 20px;
+  padding-left: 0px;
 }
 
 li {
-  list-style-image: url("../images/CheckMark.svg");
+  list-style: none;
   background-size: 90%;
   background-position: center;
   transition: background-size 0.3s;
@@ -74,6 +74,12 @@ li {
 
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.disclaimer {
+  width: 50%;
+  padding-top: 30px;
+  margin: auto;
 }
 
 .text-section {
@@ -138,13 +144,15 @@ li {
 
 .price {
   position: absolute;
+  font-weight: 400;
+  font-size: 32px;
   left: 50%;
   transform: translate(-50%, -50%);
   top: 75%;
 }
 
 .spacer {
-  height: 75px;
+  height: 100px;
 }
 
 .select-button {

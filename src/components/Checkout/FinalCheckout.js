@@ -6,6 +6,14 @@ import { init } from "emailjs-com";
 import emailjs from "emailjs-com";
 import CheckoutContext from "../../contexts/CheckoutContext";
 import Package from "../Home/Package";
+import {
+  diy,
+  starter,
+  basic,
+  intermediate,
+  advanced,
+  enterprise,
+} from "../Home/packageDetails";
 init("user_0HgOZL0g5w9HF8Uc69yMW");
 
 const FinalCheckout = () => {
@@ -18,6 +26,74 @@ const FinalCheckout = () => {
     "Unlimited Revisions",
     "Content Updates Post Launch",
   ];
+
+  const handleSelectedPackage = () => {
+    switch (checkoutInfo.selectedPackage) {
+      case "diy":
+        return (
+          <Package
+            image={<Basic />}
+            type="final"
+            features={diy.features}
+            price={diy.price}
+            title={diy.title}
+          />
+        );
+      case "starter":
+        return (
+          <Package
+            image={<Basic />}
+            type="final"
+            features={starter.features}
+            price={starter.price}
+            title={starter.title}
+          />
+        );
+      case "basic":
+        return (
+          <Package
+            image={<Basic />}
+            type="final"
+            features={basic.features}
+            price={basic.price}
+            title={basic.title}
+          />
+        );
+      case "intermediate":
+        return (
+          <Package
+            image={<Basic />}
+            type="final"
+            features={intermediate.features}
+            price={intermediate.price}
+            title={intermediate.title}
+          />
+        );
+      case "advanced":
+        return (
+          <Package
+            image={<Basic />}
+            type="final"
+            features={advanced.features}
+            price={advanced.price}
+            title={advanced.title}
+          />
+        );
+      case "enterprise":
+        return (
+          <Package
+            image={<Basic />}
+            type="final"
+            features={enterprise.features}
+            price={enterprise.price}
+            title={enterprise.title}
+          />
+        );
+
+      default:
+        return "Something went wrong, it looks like you never selected a package.";
+    }
+  };
 
   return (
     <div className="final-checkout">
@@ -75,12 +151,7 @@ const FinalCheckout = () => {
           <Card>
             <CardContent>
               <h4>Package Selection</h4>
-              <Package
-                image={<Basic />}
-                type="checkout"
-                features={features}
-                title="Basic Plan"
-              />
+              {handleSelectedPackage()}
             </CardContent>
           </Card>
         </Grid>

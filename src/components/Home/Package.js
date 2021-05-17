@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 function Package({ image, features, link, price, type, title }) {
   return (
@@ -14,13 +15,27 @@ function Package({ image, features, link, price, type, title }) {
             ))}
           </ul>
         </div>
-        <div className="price">{price}</div>
+        <div className="price">
+          {price ? (
+            price
+          ) : (
+            <span style={{ fontSize: "16px", fontWeight: "400" }}>
+              {" "}
+              Request Quote
+            </span>
+          )}
+        </div>
         <div className="spacer"></div>
         <div className="select-button">
-          {type === "checkout" ? (
+          {type === "final" ? (
             ""
           ) : (
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              to={`/checkout/${link}`}
+              component={Link}
+            >
               Select
             </Button>
           )}

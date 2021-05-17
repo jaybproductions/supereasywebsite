@@ -194,7 +194,7 @@ const Header = (props) => {
                   <>
                     <Button
                       variant="contained"
-                      to="/checkout"
+                      to="/checkout/select"
                       component={Link}
                       color="secondary"
                     >

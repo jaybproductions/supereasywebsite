@@ -25,6 +25,7 @@ function BasicInfo() {
               variant="outlined"
               label="First Name"
               onChange={handleChange}
+              defaultValue={checkoutInfo.firstName}
               fullWidth
             />
             <br /> <div style={{ paddingTop: "15px" }} />
@@ -33,6 +34,7 @@ function BasicInfo() {
               variant="outlined"
               label="Last Name"
               onChange={handleChange}
+              defaultValue={checkoutInfo.lastName}
               fullWidth
             />
             <br /> <br />
@@ -41,6 +43,7 @@ function BasicInfo() {
               variant="outlined"
               label="Email "
               onChange={handleChange}
+              defaultValue={checkoutInfo.email}
               fullWidth
             />
             <br /> <br />
@@ -49,6 +52,7 @@ function BasicInfo() {
               variant="outlined"
               label="Phone Number"
               onChange={handleChange}
+              defaultValue={checkoutInfo.phone}
               fullWidth
             />
             <br />
@@ -60,6 +64,7 @@ function BasicInfo() {
               type="password"
               label="Password"
               onChange={handleChange}
+              defaultValue={checkoutInfo.password}
               fullWidth
             />
             <br /> <br />

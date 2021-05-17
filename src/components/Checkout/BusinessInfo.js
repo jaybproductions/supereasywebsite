@@ -23,6 +23,7 @@ function BusinessInfo() {
               variant="outlined"
               label="Business Name"
               onChange={handleChange}
+              defaultValue={checkoutInfo.businessName}
               fullWidth
             />
             <br /> <div style={{ paddingTop: "15px" }} />
@@ -31,6 +32,7 @@ function BusinessInfo() {
               variant="outlined"
               label="Business Address"
               onChange={handleChange}
+              defaultValue={checkoutInfo.address}
               fullWidth
             />
             <br /> <br />
@@ -39,6 +41,7 @@ function BusinessInfo() {
               variant="outlined"
               label="Current Website Name"
               onChange={handleChange}
+              defaultValue={checkoutInfo.domain}
               fullWidth
             />
             <br /> <br />
@@ -47,6 +50,7 @@ function BusinessInfo() {
               name="businessInfo"
               variant="outlined"
               label="Tell Us Some More About Your Business"
+              defaultValue={checkoutInfo.businessInfo}
               onChange={handleChange}
               multiline
               rows={4}

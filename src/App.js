@@ -29,11 +29,12 @@ function App() {
     businessAddress: "",
     businessInfo: "",
     references: "",
+    domain: "",
     fonts: "",
     colors: "",
     comments: "",
     logo_url: "",
-
+    selectedPackage: null,
     pageArr: ["home", "about", "contact"],
   });
   return (
@@ -53,7 +54,7 @@ function App() {
           <Route path="/hosting" component={Hosting} />
           <Route path="/dashboard" component={Dashboard} />
           <CheckoutContext.Provider value={{ checkoutInfo, setCheckoutInfo }}>
-            <Route exact path="/checkout" component={Checkout} />
+            <Route exact path="/checkout/:packageName" component={Checkout} />
           </CheckoutContext.Provider>
         </Switch>
       </UserContext.Provider>

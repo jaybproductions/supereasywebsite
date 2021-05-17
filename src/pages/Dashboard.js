@@ -21,7 +21,7 @@ function Dashboard() {
   const [openFinal, setOpenFinal] = useState(false);
   let history = useHistory();
   useEffect(() => {
-    if (!user) return;
+    if (!user) return history.push("/home");
     handleGetUserDataFromFirebase();
   }, [user]);
 

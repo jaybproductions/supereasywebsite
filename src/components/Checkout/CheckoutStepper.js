@@ -128,14 +128,26 @@ export default function CheckoutStepper({ type }) {
       </Stepper>
       <div>
         {activeStep === steps.length ? (
-          <div>
+          <div
+            className="instructions"
+            style={{
+              display: "flex",
+              height: "40vh",
+              width: "100%",
+              margin: "auto",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Typography className={classes.instructions}>
-              Thank you for signing up for Super Easy Website! <br />
+              “Great Job” We have received all of the information we need at
+              this time to set up your account and begin the process of building
+              your website. Check your email for next steps, or click{" "}
+              <Link to="/dashboard">here</Link> to Log In to your Dashboard.
               <br />
-              You will recieve an email with next steps shortly. <br /> <br />
-              Click <Link to="/dashboard">here</Link> to go to the Dashboard
+              <br />
+              <strong>Thank you for signing up for Super Easy Website!</strong>
             </Typography>
-            <Button onClick={handleReset}>Reset</Button>
           </div>
         ) : (
           <div>

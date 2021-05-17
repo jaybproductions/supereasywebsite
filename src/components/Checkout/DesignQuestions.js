@@ -145,6 +145,7 @@ const DesignQuestions = ({ userData }) => {
               name="references"
               variant="outlined"
               label="Design References"
+              defaultValue={checkoutInfo.references}
               onChange={handleChange}
               fullWidth
             />
@@ -154,6 +155,7 @@ const DesignQuestions = ({ userData }) => {
               variant="outlined"
               label="Preferred Fonts"
               onChange={handleChange}
+              defaultValue={checkoutInfo.fonts}
               fullWidth
             />
             <br />
@@ -164,6 +166,7 @@ const DesignQuestions = ({ userData }) => {
               variant="outlined"
               label="Preferred Colors"
               onChange={handleChange}
+              defaultValue={checkoutInfo.colors}
               fullWidth
             />
             <br /> <br />
@@ -172,6 +175,7 @@ const DesignQuestions = ({ userData }) => {
               <>
                 <TextField
                   value={page}
+                  defaultValue={page}
                   variant="outlined"
                   onChange={(e) => handlePageChange(e, index)}
                   fullWidth
@@ -195,6 +199,7 @@ const DesignQuestions = ({ userData }) => {
               name="comments"
               label="Additional Comments"
               onChange={handleChange}
+              defaultValue={checkoutInfo.comments}
               multiline
               rows={4}
               fullWidth
