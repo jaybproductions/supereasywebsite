@@ -41,19 +41,20 @@ function App() {
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
         <Switch>
-          <Redirect exact from="/" to={"/home"} />
-          <Route path="/home">
-            <Header component={<Home />} />
-          </Route>
-          <Route path="/login" component={Login} />
-          <Route path="/forgot" component={Forgot} />
-          <Route exact path="/pages" component={Content} />
-          <Route path="/websites/content/:page" component={PageSingle} />
-          <Route path="/admin" component={AdminContainer} />
-          <Route path="/questionnaire" component={Questionnaire} />
-          <Route path="/hosting" component={Hosting} />
-          <Route path="/dashboard" component={Dashboard} />
           <CheckoutContext.Provider value={{ checkoutInfo, setCheckoutInfo }}>
+            <Redirect exact from="/" to={"/home"} />
+            <Route path="/home">
+              <Header component={<Home />} />
+            </Route>
+            <Route path="/login" component={Login} />
+            <Route path="/forgot" component={Forgot} />
+            <Route exact path="/pages" component={Content} />
+            <Route path="/websites/content/:page" component={PageSingle} />
+            <Route path="/admin" component={AdminContainer} />
+            <Route path="/questionnaire" component={Questionnaire} />
+            <Route path="/hosting" component={Hosting} />
+            <Route path="/dashboard" component={Dashboard} />
+
             <Route exact path="/checkout/:packageName" component={Checkout} />
           </CheckoutContext.Provider>
         </Switch>

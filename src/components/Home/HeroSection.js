@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ReactComponent as HeroImage } from "../../images/HeroImage.svg";
 import { Button, TextField } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import CheckoutContext from "../../contexts/CheckoutContext";
 
 function HeroSection() {
+  const { checkoutInfo, setCheckoutInfo } = useContext(CheckoutContext);
+  const handleChange = (e) => {
+    setCheckoutInfo((previousValues) => ({
+      ...previousValues,
+      [e.target.name]: e.target.value,
+    }));
+  };
   return (
     <div className="hero-section">
       <div className="left-side">
@@ -18,6 +26,9 @@ function HeroSection() {
           <TextField
             variant="outlined"
             placeholder="Email"
+            name="email"
+            onChange={handleChange}
+            value={checkoutInfo.email}
             style={{
               maxWidth: "70%",
 
@@ -27,7 +38,7 @@ function HeroSection() {
           <Button
             variant="contained"
             color="secondary"
-            to="/checkout"
+            to="/checkout/select"
             component={Link}
             style={{
               maxHeight: "54px",

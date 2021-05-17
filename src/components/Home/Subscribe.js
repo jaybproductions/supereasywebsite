@@ -1,8 +1,16 @@
 import { Button, TextField } from "@material-ui/core";
-import React from "react";
+import React, { useContext } from "react";
+import CheckoutContext from "../../contexts/CheckoutContext";
 import { Link } from "react-router-dom";
 
 function Subscribe() {
+  const { checkoutInfo, setCheckoutInfo } = useContext(CheckoutContext);
+  const handleChange = (e) => {
+    setCheckoutInfo((previousValues) => ({
+      ...previousValues,
+      [e.target.name]: e.target.value,
+    }));
+  };
   return (
     <div className="subscribe">
       <div className="subscribe-text">
@@ -15,6 +23,9 @@ function Subscribe() {
           <TextField
             variant="outlined"
             placeholder="Email"
+            name="email"
+            onChange={handleChange}
+            value={checkoutInfo.email}
             style={{
               maxWidth: "70%",
 
@@ -24,7 +35,7 @@ function Subscribe() {
           <Button
             variant="contained"
             color="secondary"
-            to="/checkout"
+            to="/checkout/select"
             component={Link}
             style={{
               maxHeight: "54px",
