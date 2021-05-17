@@ -19,8 +19,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    backgroundColor: "#ffff",
-    color: "#ffffff",
+    color: "#FAFAFA",
     margin: "auto",
   },
   appBar: {
@@ -28,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    background: "#ffff",
-    width: "50%",
+    background: "#FAFAFA",
+    width: "85%",
     textAlign: "right",
     padding: "10px",
     margin: "auto",
@@ -193,17 +192,16 @@ const Header = (props) => {
                   </>
                 ) : (
                   <>
-                    {" "}
-                    <Button to="/login" component={Link}>
-                      Sign In
-                    </Button>
                     <Button
-                      variant="outlined"
+                      variant="contained"
                       to="/checkout"
                       component={Link}
                       color="secondary"
                     >
-                      Buy Now
+                      Sign Up
+                    </Button>
+                    <Button to="/login" component={Link}>
+                      Sign In
                     </Button>
                   </>
                 )}
@@ -211,15 +209,15 @@ const Header = (props) => {
             </Typography>
           </Toolbar>
         </AppBar>
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open,
-          })}
-        >
-          <div className={classes.drawerHeader} />
-          {props.component}
-        </main>
       </div>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        {props.component}
+      </main>
     </>
   );
 };

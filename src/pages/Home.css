@@ -1,6 +1,9 @@
 .home {
   width: 95vw;
   margin: auto;
+  font-family: proxima-soft, sans-serif;
+  font-style: normal;
+  font-weight: normal;
 }
 
 .hero-section {
@@ -12,7 +15,7 @@
 }
 
 .hero-text {
-  font-family: Rubik;
+  font-family: proxima-soft, sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 50px;
@@ -24,7 +27,7 @@
 }
 
 .left-side > p {
-  font-family: Rubik;
+  font-family: proxima-soft, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -61,13 +64,14 @@ li {
   background-position: center;
   transition: background-size 0.3s;
   -webkit-transition: background-size 0.3s;
-  line-height: 3;
+  line-height: 2;
 }
 
 .packages {
   display: grid;
   width: 70%;
   margin: auto;
+
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
 }
@@ -89,10 +93,14 @@ li {
   margin: auto;
   background: #ffffff;
   border: 2px solid #dddddd;
-  height: 600px;
+  height: 100%;
   box-sizing: border-box;
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
+}
+
+.package-container {
+  margin: 20px;
 }
 
 .package-two {
@@ -119,7 +127,7 @@ li {
 }
 
 .features-list {
-  width: 75%;
+  width: 100%;
   padding-left: 30px;
 }
 
@@ -132,13 +140,19 @@ li {
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  top: 85%;
+  top: 75%;
+}
+
+.spacer {
+  height: 75px;
 }
 
 .select-button {
   position: absolute;
+  padding-top: -30px;
   left: 50%;
   transform: translate(-50%, -50%);
+
   bottom: 0;
 }
 
@@ -174,13 +188,15 @@ li {
 .test-item {
   width: 85%;
   display: flex;
+  height: 125px;
   justify-content: center;
   align-items: center;
   background: #ffffff;
   border: 2px solid #dddddd;
+
   box-sizing: border-box;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .subscribe {
@@ -190,11 +206,38 @@ li {
   padding-bottom: 100px;
   display: grid;
   margin: 0;
-  place-items: center;
+
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
+.subscribe-text {
+  padding-left: 50px;
+}
+
 .faq > h4 {
   text-align: center;
+}
+
+.faq {
+  font-family: proxima-soft, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  padding: 30px;
+
+  height: 100%;
+}
+
+.questions {
+  font-family: proxima-soft, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  padding: 30px;
+  height: 100%;
+  padding-bottom: 100px;
+}
+
+sign-up {
+  display: flex;
+  flex-direction: row;
 }

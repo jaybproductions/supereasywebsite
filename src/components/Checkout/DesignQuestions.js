@@ -26,6 +26,25 @@ const DesignQuestions = ({ userData }) => {
     }));
   };
 
+  const handleAddPage = () => {
+    const tempArr = checkoutInfo.pageArr;
+    tempArr.push(" ");
+    setCheckoutInfo((previousValues) => ({
+      ...previousValues,
+      pageArr: tempArr,
+    }));
+  };
+
+  const handlePageChange = (e, index) => {
+    let tempArr = checkoutInfo.pageArr;
+    tempArr.splice(index, 1, e.target.value);
+    setCheckoutInfo((previousValues) => ({
+      ...previousValues,
+      pageArr: tempArr,
+    }));
+    // tempArr = checkoutInfo.pageArr;
+  };
+
   const submitDesign = async () => {
     const {
       businessName,
@@ -148,6 +167,29 @@ const DesignQuestions = ({ userData }) => {
               fullWidth
             />
             <br /> <br />
+            Pages: <br />
+            {checkoutInfo.pageArr.map((page, index) => (
+              <>
+                <TextField
+                  value={page}
+                  variant="outlined"
+                  onChange={(e) => handlePageChange(e, index)}
+                  fullWidth
+                />
+                <br />
+                <br />
+              </>
+            ))}
+            <br />
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleAddPage}
+            >
+              Add Page
+            </Button>
+            <br />
+            <br />
             <TextField
               variant="outlined"
               name="comments"

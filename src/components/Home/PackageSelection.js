@@ -2,6 +2,15 @@ import { Button } from "@material-ui/core";
 import React from "react";
 import { ReactComponent as Basic } from "../../images/Basic.svg";
 import { Link } from "react-router-dom";
+import Package from "./Package";
+import {
+  diy,
+  starter,
+  basic,
+  intermediate,
+  advanced,
+  enterprise,
+} from "./packageDetails";
 
 function PackageSelection() {
   return (
@@ -14,90 +23,28 @@ function PackageSelection() {
         </p>
       </div>
       <div className="packages">
-        <div className="package-container">
-          <div className="package-one">
-            <div className="package-img">
-              <Basic />
-            </div>
-            <div className="package-title">Basic Plan</div>
-            <div className="features-list">
-              <ul>
-                <li>1 Landing/Sales Page</li>
-                <li>Free SSL Certificate</li>
-                <li>You Provide Content</li>
-                <li>Mobile Responsive</li>
-              </ul>
-            </div>
-            <div className="price">Pricing</div>
-            <div className="select-button">
-              <Button
-                variant="outlined"
-                color="secondary"
-                to="/checkout"
-                component={Link}
-              >
-                Select
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="package-container">
-          <div className="package-two">
-            <div className="package-img">
-              <Basic />
-            </div>
-            <div className="package-title">Standard Plan</div>
-            <div className="features-list">
-              <ul>
-                <li>3-5 Pages</li>
-                <li>Great for Startups</li>
-                <li>Logo Creation on Request</li>
-                <li>Unrivaled Support</li>
-                <li>Another Feature Here</li>
-              </ul>
-            </div>
-            <div className="price">Pricing</div>
-            <div className="select-button">
-              <Button
-                variant="outlined"
-                color="secondary"
-                to="/checkout"
-                component={Link}
-              >
-                Select
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="package-container">
-          <div className="package-three">
-            <div className="package-img">
-              <Basic />
-            </div>
-            <div className="package-title">Premium Plan</div>
-            <div className="features-list">
-              <ul>
-                <li>5-10 Pages</li>
-                <li>e-Commerce Available</li>
-                <li>Content Creation on Request</li>
-                <li>Unlimited Revisions</li>
-                <li>Content Updates Post Launch</li>
-                <li>Another Great Feature</li>
-              </ul>
-            </div>
-            <div className="price">Pricing</div>
-            <div className="select-button">
-              <Button
-                variant="contained"
-                color="secondary"
-                to="/checkout"
-                component={Link}
-              >
-                Select
-              </Button>
-            </div>
-          </div>
-        </div>
+        <Package title="DIY" features={diy.features} price={diy.price} />
+        <Package
+          title="Starter"
+          features={starter.features}
+          price={starter.price}
+        />
+        <Package title="Basic" features={basic.features} price={basic.price} />
+        <Package
+          title="Intermediate"
+          features={intermediate.features}
+          price={intermediate.price}
+        />
+        <Package
+          title="Advanced"
+          features={advanced.features}
+          price={advanced.price}
+        />
+        <Package
+          title="Enterprise"
+          features={enterprise.features}
+          price={enterprise.price}
+        />
       </div>
     </div>
   );

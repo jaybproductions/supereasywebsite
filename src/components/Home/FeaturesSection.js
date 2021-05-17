@@ -8,7 +8,7 @@ function FeaturesSection() {
         <FeaturesImg />
       </div>
       <div className="right-side">
-        <h3>Just some of the features SuperEasyWebsite Offers...</h3>
+        <h3>Just some of the features Super Easy Website Offers...</h3>
         <ul>
           <li>Fully Finished Website - Ready To Launch</li>
           <li>Mobile Responsive with Modern Design </li>

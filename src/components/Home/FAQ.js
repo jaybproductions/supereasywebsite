@@ -9,6 +9,7 @@ const Accordion = withStyles({
   root: {
     border: "1px solid rgba(0, 0, 0, .125)",
     boxShadow: "none",
+    fontFamily: "proxima-soft, sans-serif",
     "&:not(:last-child)": {
       borderBottom: 0,
     },
@@ -26,6 +27,7 @@ const AccordionSummary = withStyles({
   root: {
     backgroundColor: "rgba(0, 0, 0, .03)",
     borderBottom: "1px solid rgba(0, 0, 0, .125)",
+    fontFamily: "proxima-soft, sans-serif",
     marginBottom: -1,
     minHeight: 56,
     "&$expanded": {
@@ -53,15 +55,7 @@ const FAQ = () => {
     setExpanded(newExpanded ? panel : false);
   };
   return (
-    <div
-      className="faq"
-      id="faq"
-      style={{
-        padding: "30px",
-
-        height: "100%",
-      }}
-    >
+    <div className="faq" id="faq">
       <h4>FAQ's</h4>
       <div style={{ width: "50%", margin: "auto" }}>
         <Accordion

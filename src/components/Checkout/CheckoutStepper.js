@@ -15,6 +15,7 @@ import FinalCheckout from "./FinalCheckout";
 import { Link } from "react-router-dom";
 import { AddNewUser } from "../../utils/UpdateUserDetails";
 import { AddNewLead, UpdateLead } from "../../utils/UpdateUserDetails";
+import { SendEmail } from "../../utils/SendEmail";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,6 +106,8 @@ export default function CheckoutStepper({ type }) {
     console.log(checkoutInfo);
     if (activeStep === steps.length - 1) {
       await AddNewUser(checkoutInfo);
+      const content = "Thank you for signing up for Super Easy Website.";
+      await SendEmail(content, checkoutInfo.email);
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     console.log(checkoutInfo);

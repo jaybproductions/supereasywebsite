@@ -5,10 +5,19 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: "proxima-soft",
+  },
+});
 
 ReactDOM.render(
   <Router>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Router>,
 
   document.getElementById("root")

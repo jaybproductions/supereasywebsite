@@ -15,21 +15,14 @@ const Questions = () => {
   };
 
   return (
-    <div
-      className="questions"
-      style={{
-        padding: "30px",
-        height: "100%",
-        paddingBottom: "100px",
-      }}
-    >
+    <div className="questions">
       <Card style={{ width: "50%", margin: "auto" }}>
         <CardContent>
           <h5>Questions?</h5>
           <p>
             Please fill out the form below and we will get back to you ASAP.
           </p>
-          <div style={{ width: "70%", margin: "auto" }}>
+          <div>
             <form id="questions">
               <TextField
                 name="name"

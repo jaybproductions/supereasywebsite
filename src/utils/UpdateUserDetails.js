@@ -1,5 +1,5 @@
 import firebase from "../firebase";
-
+import { SendEmail } from "./SendEmail";
 //! Adding new user to firebase db
 export async function AddNewUser(newUserData) {
   //register new user with auth
@@ -61,6 +61,56 @@ export async function UpdateLead(updatedLeadDoc) {
       updatedLeadDoc,
     });
   }
+}
+
+export async function handleAddMockupLink(user, mockupLink) {
+  if (!user) return;
+  const updateRef = firebase.db.collection("websites").doc(user.id);
+  await updateRef.update(
+    {
+      mockupLink: mockupLink,
+      mockupStatus: "pending",
+    },
+    { merge: true }
+  );
+
+  const content = "Your Mockup Link has been added.";
+  await SendEmail(content, user.email);
+}
+
+export async function handleAddStagingLink(user, stagingLink) {
+  if (!user) return;
+  const updateRef = firebase.db.collection("websites").doc(user.id);
+  await updateRef.update(
+    {
+      stagingLink: stagingLink,
+      stagingStatus: "pending",
+    },
+    { merge: true }
+  );
+
+  const content = "Your Staging Link has been added.";
+  console.log(user.email);
+  await SendEmail(content, user.email);
+}
+
+export async function handleApproveDesignQuestions(user, callback) {
+  if (!user) return;
+  const updateRef = firebase.db.collection("users").doc(user.id);
+  updateRef.update(
+    {
+      designQuestionStatus: "approved",
+      stepStatus: "started",
+      currentStep: user.currentStep + 1,
+      projectStatus: "Selecting Hosting Package",
+    },
+    { merge: true }
+  );
+
+  await callback();
+
+  const content = "Your Design questions have been approved.";
+  await SendEmail(content, user.email);
 }
 
 //TODO function for updating design questions
