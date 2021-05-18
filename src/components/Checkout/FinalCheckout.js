@@ -32,7 +32,6 @@ const FinalCheckout = () => {
       case "diy":
         return (
           <Package
-            image={<Basic />}
             type="final"
             features={diy.features}
             price={diy.price}
@@ -42,7 +41,6 @@ const FinalCheckout = () => {
       case "starter":
         return (
           <Package
-            image={<Basic />}
             type="final"
             features={starter.features}
             price={starter.price}
@@ -52,7 +50,6 @@ const FinalCheckout = () => {
       case "basic":
         return (
           <Package
-            image={<Basic />}
             type="final"
             features={basic.features}
             price={basic.price}
@@ -62,7 +59,6 @@ const FinalCheckout = () => {
       case "intermediate":
         return (
           <Package
-            image={<Basic />}
             type="final"
             features={intermediate.features}
             price={intermediate.price}
@@ -72,7 +68,6 @@ const FinalCheckout = () => {
       case "advanced":
         return (
           <Package
-            image={<Basic />}
             type="final"
             features={advanced.features}
             price={advanced.price}
@@ -82,7 +77,6 @@ const FinalCheckout = () => {
       case "enterprise":
         return (
           <Package
-            image={<Basic />}
             type="final"
             features={enterprise.features}
             price={enterprise.price}
@@ -96,7 +90,7 @@ const FinalCheckout = () => {
   };
 
   return (
-    <div className="final-checkout">
+    <div className="final-checkout" style={{ paddingBottom: "20px" }}>
       <h5 style={{ padding: "20px", paddingBottom: "40px" }}>
         Please review all information below and click "finish" to complete your
         account registration.

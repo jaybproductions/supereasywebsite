@@ -49,6 +49,7 @@
   margin: auto;
   display: grid;
   place-items: center;
+  grid-gap: 30px;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 

@@ -16,6 +16,7 @@ import Dashboard from "./pages/Dashboard";
 import AdminContainer from "./components/Admin/AdminContainer";
 import Checkout from "./pages/Checkout";
 import CheckoutContext from "./contexts/CheckoutContext";
+import Footer from "./components/Footer";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -59,6 +60,7 @@ function App() {
           </CheckoutContext.Provider>
         </Switch>
       </UserContext.Provider>
+      <Footer />
     </div>
   );
 }
