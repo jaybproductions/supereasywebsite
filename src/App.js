@@ -18,7 +18,7 @@ import Checkout from "./pages/Checkout";
 import CheckoutContext from "./contexts/CheckoutContext";
 import Footer from "./components/Footer";
 
-function App() {
+const App = () => {
   const [user, setUser] = useAuth();
   const [checkoutInfo, setCheckoutInfo] = useState({
     firstName: "",
@@ -63,6 +63,6 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
